@@ -255,8 +255,116 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
     setIsAnswerCorrect(null);
   };
 
+  // ---------------------------------------------------------------------------
+  // Desktop Speedrun Keyboard Shortcuts Listener
+  // ---------------------------------------------------------------------------
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if user is focused inside an input, textarea, or editable element
+      const target = e.target as HTMLElement;
+      if (
+        target &&
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
+      // If quote modal is open, let the modal handle escape
+      if (quoteModalOpen) return;
+
+      const key = e.key;
+
+      // 1. ZANTE DIFFICULTY SHORTCUTS
+      if (difficultyMode === 'zante') {
+        if (!zanteAnswered) {
+          let selectedIdx: number | null = null;
+          if (key === '1' || key === 'a' || key === 'A') selectedIdx = 0;
+          else if (key === '2' || key === 'b' || key === 'B') selectedIdx = 1;
+          else if (key === '3' || key === 'c' || key === 'C') selectedIdx = 2;
+          else if (key === '4' || key === 'd' || key === 'D') selectedIdx = 3;
+
+          if (selectedIdx !== null && selectedIdx < currentZanteQ.options.length) {
+            e.preventDefault();
+            handleZanteOptionClick(selectedIdx);
+          }
+        } else {
+          // Already answered: Enter or Space advances immediately to next question
+          if (key === 'Enter' || key === ' ') {
+            e.preventDefault();
+            handleNextZanteQuestion();
+          }
+        }
+      }
+
+      // 2. ANDRE DIFFICULTY SHORTCUTS
+      if (difficultyMode === 'andre') {
+        if (!andreAnswered) {
+          let selectedIdx: number | null = null;
+          if (key === '1' || key === 'a' || key === 'A') selectedIdx = 0;
+          else if (key === '2' || key === 'b' || key === 'B') selectedIdx = 1;
+          else if (key === '3' || key === 'c' || key === 'C') selectedIdx = 2;
+          else if (key === '4' || key === 'd' || key === 'D') selectedIdx = 3;
+
+          if (selectedIdx !== null && selectedIdx < andreQuestion.distractors.length) {
+            e.preventDefault();
+            handleSelectAndreDistractor(andreQuestion.distractors[selectedIdx].id);
+          } else if (key === 'Enter') {
+            // Enter submits the active choice
+            if (selectedDistractorId) {
+              e.preventDefault();
+              handleSubmitAndreAnswer();
+            }
+          }
+        } else {
+          // Already answered: Enter or Space advances immediately to next question
+          if (key === 'Enter' || key === ' ') {
+            e.preventDefault();
+            handleNextAndreQuestion();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [
+    difficultyMode,
+    zanteAnswered,
+    currentZanteQ,
+    zanteIndex,
+    quoteModalOpen,
+    andreAnswered,
+    andreQuestion,
+    selectedDistractorId,
+  ]);
+
   return (
     <div className={`w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 ${className}`}>
+      {/* Desktop Keyboard Speedrun Pill */}
+      <div className="hidden sm:flex items-center justify-center gap-3 text-[11px] font-medium text-slate-500 py-1.5 px-4 rounded-full bg-white/80 backdrop-blur-md border border-slate-200/80 max-w-fit mx-auto shadow-xs select-none">
+        <span className="font-bold text-violet-700 flex items-center gap-1">⚡ Speedrun Keys:</span>
+        <span className="flex items-center gap-1">
+          <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-slate-100 rounded border border-slate-300 text-slate-700 font-bold">1-4</kbd> or <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-slate-100 rounded border border-slate-300 text-slate-700 font-bold">A-D</kbd> Select
+        </span>
+        <span>•</span>
+        <span className="flex items-center gap-1">
+          <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-slate-100 rounded border border-slate-300 text-slate-700 font-bold">Enter ↵</kbd> Submit
+        </span>
+        <span>•</span>
+        <span className="flex items-center gap-1">
+          <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-slate-100 rounded border border-slate-300 text-slate-700 font-bold">Space</kbd> / <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-slate-100 rounded border border-slate-300 text-slate-700 font-bold">Enter</kbd> Next
+        </span>
+        <span>•</span>
+        <span className="flex items-center gap-1">
+          <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-slate-100 rounded border border-slate-300 text-slate-700 font-bold">F</kbd> Formula
+        </span>
+        <span>•</span>
+        <span className="flex items-center gap-1">
+          <kbd className="px-1.5 py-0.5 font-mono text-[10px] bg-slate-100 rounded border border-slate-300 text-slate-700 font-bold">S</kbd> Scratchpad
+        </span>
+      </div>
       {/* --------------------------------------------------------------------- */}
       {/* 1. ZANTE DIFFICULTY MODE (Feisty, Witty, Screenshot-Worthy)           */}
       {/* --------------------------------------------------------------------- */}
@@ -341,9 +449,14 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
                     className={`w-full p-4 rounded-2xl border text-left font-semibold text-sm sm:text-base transition-all spring-touch flex items-center justify-between gap-3 ${optionStyle}`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="w-7 h-7 rounded-full bg-slate-100 text-slate-600 text-xs font-black flex items-center justify-center shrink-0">
-                        {String.fromCharCode(65 + idx)}
-                      </span>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span className="w-7 h-7 rounded-full bg-slate-100 text-slate-600 text-xs font-black flex items-center justify-center">
+                          {String.fromCharCode(65 + idx)}
+                        </span>
+                        <kbd className="hidden sm:inline-block text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-400 border border-slate-200">
+                          {idx + 1}
+                        </kbd>
+                      </div>
                       <span>{opt}</span>
                     </div>
 
@@ -381,9 +494,12 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
                   variant="primary"
                   size="md"
                   onClick={handleNextZanteQuestion}
-                  className="!px-6 text-sm font-black"
+                  className="!px-6 text-sm font-black inline-flex items-center gap-2"
                 >
-                  Next Question 💅⚡
+                  <span>Next Question 💅⚡</span>
+                  <kbd className="hidden sm:inline-block text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/25 text-white border border-white/30">
+                    ↵ Enter
+                  </kbd>
                 </GlassButton>
               </div>
             )}
@@ -539,15 +655,20 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
                     className={`w-full p-4 rounded-2xl border text-left transition-all spring-touch flex items-center justify-between gap-3 ${optionStyle}`}
                   >
                     <div className="flex items-center gap-3 overflow-x-auto flex-1">
-                      <span
-                        className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center shrink-0 ${
-                          isSelected
-                            ? 'bg-violet-600 text-white'
-                            : 'bg-slate-100 text-slate-600'
-                        }`}
-                      >
-                        {dist.id.replace('opt-', '').toUpperCase()}
-                      </span>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span
+                          className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center ${
+                            isSelected
+                              ? 'bg-violet-600 text-white'
+                              : 'bg-slate-100 text-slate-600'
+                          }`}
+                        >
+                          {dist.id.replace('opt-', '').toUpperCase()}
+                        </span>
+                        <kbd className="hidden sm:inline-block text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-400 border border-slate-200">
+                          {andreQuestion.distractors.indexOf(dist) + 1}
+                        </kbd>
+                      </div>
                       <div
                         className="text-xs sm:text-sm font-mono"
                         dangerouslySetInnerHTML={{ __html: renderMath(dist.latex, false) }}
@@ -584,9 +705,12 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
                   size="md"
                   onClick={handleSubmitAndreAnswer}
                   disabled={!selectedDistractorId}
-                  className="!px-8 font-black"
+                  className="!px-8 font-black inline-flex items-center gap-2"
                 >
-                  Submit Answer ✓
+                  <span>Submit Answer ✓</span>
+                  <kbd className="hidden sm:inline-block text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/25 text-white border border-white/30">
+                    ↵ Enter
+                  </kbd>
                 </GlassButton>
               </div>
             )}
@@ -647,9 +771,12 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
                     variant="primary"
                     size="md"
                     onClick={handleNextAndreQuestion}
-                    className="!px-7 font-black text-sm shadow-md"
+                    className="!px-7 font-black text-sm shadow-md inline-flex items-center gap-2"
                   >
-                    Next Question →
+                    <span>Next Question →</span>
+                    <kbd className="hidden sm:inline-block text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/25 text-white border border-white/30">
+                      ↵ Enter
+                    </kbd>
                   </GlassButton>
                 </div>
               </div>

@@ -140,6 +140,54 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
     }));
   };
 
+  // Keyboard speedrun navigation during live exam
+  useEffect(() => {
+    if (!isExamActive || isExamSubmitted) return;
+
+    const handleExamKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (
+        target &&
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
+      const key = e.key;
+      const curQ = examQuestions[currentQuestionIndex];
+      if (!curQ) return;
+
+      // 1..4 or A..D / a..d option selection
+      let selectedIdx: number | null = null;
+      if (key === '1' || key === 'a' || key === 'A') selectedIdx = 0;
+      else if (key === '2' || key === 'b' || key === 'B') selectedIdx = 1;
+      else if (key === '3' || key === 'c' || key === 'C') selectedIdx = 2;
+      else if (key === '4' || key === 'd' || key === 'D') selectedIdx = 3;
+
+      if (selectedIdx !== null && selectedIdx < curQ.distractors.length) {
+        e.preventDefault();
+        handleSelectAnswer(curQ.distractors[selectedIdx].id);
+      } else if (key === 'ArrowRight' || key === 'Enter') {
+        if (currentQuestionIndex < examQuestions.length - 1) {
+          e.preventDefault();
+          soundEngine.playTapPop();
+          setCurrentQuestionIndex((prev) => prev + 1);
+        }
+      } else if (key === 'ArrowLeft') {
+        if (currentQuestionIndex > 0) {
+          e.preventDefault();
+          soundEngine.playTapPop();
+          setCurrentQuestionIndex((prev) => prev - 1);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleExamKeyDown);
+    return () => window.removeEventListener('keydown', handleExamKeyDown);
+  }, [isExamActive, isExamSubmitted, currentQuestionIndex, examQuestions]);
+
   // Safe KaTeX formatting
   const renderMath = (latex: string, displayMode: boolean = false): string => {
     try {
@@ -588,15 +636,20 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
                     }`}
                   >
                     <div className="flex items-center gap-3 overflow-x-auto flex-1">
-                      <span
-                        className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center shrink-0 ${
-                          isSelected
-                            ? 'bg-violet-600 text-white'
-                            : 'bg-slate-100 text-slate-600'
-                        }`}
-                      >
-                        {dist.id.replace('opt-', '').toUpperCase()}
-                      </span>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span
+                          className={`w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center ${
+                            isSelected
+                              ? 'bg-violet-600 text-white'
+                              : 'bg-slate-100 text-slate-600'
+                          }`}
+                        >
+                          {dist.id.replace('opt-', '').toUpperCase()}
+                        </span>
+                        <kbd className="hidden sm:inline-block text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-400 border border-slate-200">
+                          {currentQ.distractors.indexOf(dist) + 1}
+                        </kbd>
+                      </div>
                       <div
                         className="text-xs sm:text-sm text-slate-900 font-mono"
                         dangerouslySetInnerHTML={{ __html: renderMath(dist.latex, false) }}

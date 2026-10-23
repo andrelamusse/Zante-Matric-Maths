@@ -66,17 +66,25 @@ export const App: React.FC = () => {
     saveStudioState(studioState);
   }, [studioState]);
 
-  // Keyboard shortcut listener ('F' for formula sheet, 'Escape' for closing overlays)
+  // Keyboard shortcut listener ('F' for formula sheet, 'S' for scratchpad, 'Escape' for closing overlays)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Don't trigger if typing in an input or textarea
       const target = e.target as HTMLElement;
-      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')) {
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
         return;
       }
 
       if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
         setIsFormulaDrawerOpen((prev) => !prev);
+      } else if (e.key === 's' || e.key === 'S') {
+        e.preventDefault();
+        setIsScratchpadActive((prev) => !prev);
+      } else if (e.key === 'Escape') {
+        setIsFormulaDrawerOpen(false);
+        setIsScratchpadActive(false);
+        setIsVipVaultOpen(false);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
