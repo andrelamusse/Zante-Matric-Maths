@@ -57,11 +57,11 @@ export const ZANTE_QUESTIONS: ZanteQuestion[] = [
   {
     id: 'zante_elem_05',
     category: 'elementary',
-    questionText: 'Which number is strictly greater: 10 or 2?',
-    options: ['2 (it has better energy)', '10', 'They are equal in my heart', 'Both are invalid'],
-    correctIndex: 1,
-    wittyToast: 'Inequalities demolished. You really know your double digits.',
-    screenshotQuote: 'Inequalities conquered. Big numbers fear me.',
+    questionText: 'Which number is bigger: 5 or 2?',
+    options: ['5', '2 (it has better energy)', 'They are equal in my heart', 'Both are invalid'],
+    correctIndex: 0,
+    wittyToast: 'Inequalities demolished. You really know your numbers. Big numbers fear you.',
+    screenshotQuote: 'Inequalities conquered: 5 > 2. Distinction incoming.',
   },
 
   // -------------------------------------------------------------------------
@@ -70,11 +70,11 @@ export const ZANTE_QUESTIONS: ZanteQuestion[] = [
   {
     id: 'zante_coffee_01',
     category: 'iced_coffee',
-    questionText: 'If an oat milk iced vanilla latte costs R45, and you buy two, but Andre pays for both, how much did you spend?',
-    options: ['R90', 'R45', 'R0 (in fact, you made a profit)', 'Financial freedom'],
-    correctIndex: 2,
-    wittyToast: 'Correct! That is pure economic theory. Free coffee is legally considered an asset on your balance sheet.',
-    screenshotQuote: 'Master of Financial Mathematics: Spent R0, acquired 2 iced lattes. Financial independence unlocked ☕✨',
+    questionText: 'If Zante has 2 iced coffees and Andre buys her 1 more because she looks pretty today, how many iced coffees does she have?',
+    options: ['3', 'Not enough caffeine to function', 'R0 spent (financial freedom)', '4 (girl math rounded up)'],
+    correctIndex: 0,
+    wittyToast: "3?! Stop it right now, Einstein is literally shaking. You're so smart AND pretty, how is that even legal? 💅✨",
+    screenshotQuote: 'Beauty and brains verified: 2 + 1 = 3 iced coffees acquired ☕💖',
   },
   {
     id: 'zante_coffee_02',
@@ -146,11 +146,11 @@ export const ZANTE_QUESTIONS: ZanteQuestion[] = [
   {
     id: 'zante_pass_04',
     category: 'passenger_princess',
-    questionText: 'Who holds the Aux cable in the vehicle according to national protocol?',
+    questionText: 'Passenger Princess Rule #1: Who is picking the aux playlist?',
     options: ['The driver', 'The passenger princess unconditionally', 'The radio', 'Whoever has the best math playlist'],
     correctIndex: 1,
     wittyToast: 'Sonic sovereignty respected. Your playlist is non-negotiable.',
-    screenshotQuote: 'Sound engineering: Passenger princess controls the soundtrack.',
+    screenshotQuote: 'Sound engineering: Passenger princess controls the soundtrack 🎶👑',
   },
   {
     id: 'zante_pass_05',
@@ -253,10 +253,10 @@ export const ZANTE_QUESTIONS: ZanteQuestion[] = [
   {
     id: 'zante_flirt_05',
     category: 'flirty_priorities',
-    questionText: 'Count the hearts: 💖 💖 💖. Exactly how many are there?',
+    questionText: 'Count the hearts: 💖 💖 💖 — how many are there?',
     options: ['3', '3, and they are all for you', '4', 'Too many emotions for one screen'],
     correctIndex: 0,
-    wittyToast: 'Spot on. Discrete counting at its finest. Do not let your ego get too inflated now.',
+    wittyToast: 'Well done gorgeous, that was insane skill. Beauty and brains in one package, honestly unfair to everyone else 👑💖',
     screenshotQuote: 'Heart audit complete: exactly 3. Discrete mathematics handled with style.',
   },
 
