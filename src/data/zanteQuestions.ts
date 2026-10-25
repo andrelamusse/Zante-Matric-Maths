@@ -1,4 +1,5 @@
 import type { ZanteQuestion, ZanteCategory } from '../types/gamification.ts';
+import { shuffleZanteQuestion } from '../generators/utils.ts';
 
 /**
  * Zante's Matric Maths Studio — Curated Zante Difficulty Joke Questions
@@ -331,5 +332,5 @@ export function getRandomZanteQuestion(excludeIds: string[] = []): ZanteQuestion
   const pool = ZANTE_QUESTIONS.filter((q) => !excludeIds.includes(q.id));
   const candidatePool = pool.length > 0 ? pool : ZANTE_QUESTIONS;
   const randomIndex = Math.floor(Math.random() * candidatePool.length);
-  return candidatePool[randomIndex];
+  return shuffleZanteQuestion(candidatePool[randomIndex]);
 }

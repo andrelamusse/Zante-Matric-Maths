@@ -1,4 +1,5 @@
-import type { QuestionDistractor } from '../types/curriculum.ts';
+import type { Question, QuestionDistractor } from '../types/curriculum.ts';
+import type { ZanteQuestion } from '../types/gamification.ts';
 
 /**
  * Returns a random integer between min and max (inclusive).
@@ -32,15 +33,25 @@ export function randomChoice<T>(arr: readonly T[] | T[]): T {
 }
 
 /**
+ * In-place Fisher-Yates shuffle algorithm.
+ * Guarantees uniform random distribution across all permutations.
+ */
+export function fisherYatesShuffle<T>(arr: T[]): T[] {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+  return arr;
+}
+
+/**
  * Shuffles an array in place or returns a shallow shuffled copy.
  */
 export function shuffleArray<T>(arr: readonly T[] | T[]): T[] {
   const copy = [...arr];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
+  return fisherYatesShuffle(copy);
 }
 
 /**
@@ -172,7 +183,7 @@ export function buildDistractorSet(
   correctLatex: string,
   correctExplanation: string,
   candidates: Array<{ latex: string; explanation: string }>
-): { distractors: QuestionDistractor[]; correctAnswerId: string } {
+): { distractors: QuestionDistractor[]; correctAnswerId: string; correctIndex: number } {
   // Collect unique distractors that do not match the correct LaTeX
   const uniqueDistractors: Array<{ latex: string; explanation: string }> = [];
   const seenLatex = new Set<string>([correctLatex]);
@@ -214,15 +225,19 @@ export function buildDistractorSet(
     })),
   ];
 
-  const shuffled = shuffleArray(rawList);
+  // In-place Fisher-Yates shuffle directly on raw options list
+  fisherYatesShuffle(rawList);
+
   // Re-assign human letters opt-a, opt-b, opt-c, opt-d
   const letters = ['opt-a', 'opt-b', 'opt-c', 'opt-d'];
   let correctAnswerId = 'opt-a';
+  let correctIndex = 0;
 
-  const distractors: QuestionDistractor[] = shuffled.map((item, index) => {
+  const distractors: QuestionDistractor[] = rawList.map((item, index) => {
     const newId = letters[index];
     if (item.isCorrect) {
       correctAnswerId = newId;
+      correctIndex = index;
     }
     return {
       id: newId,
@@ -232,7 +247,88 @@ export function buildDistractorSet(
     };
   });
 
-  return { distractors, correctAnswerId };
+  return { distractors, correctAnswerId, correctIndex };
+}
+
+/**
+ * Applies in-place Fisher-Yates shuffle to a Question's distractors,
+ * ensuring uniform 25% distribution across opt-a, opt-b, opt-c, opt-d.
+ * Updates correctAnswerId and correctIndex.
+ */
+export function shuffleQuestionDistractors<T extends Question>(question: T): T {
+  const letters = ['opt-a', 'opt-b', 'opt-c', 'opt-d'];
+  const clonedDistractors = question.distractors.map((d) => ({ ...d }));
+  fisherYatesShuffle(clonedDistractors);
+
+  let correctAnswerId = 'opt-a';
+  let correctIndex = 0;
+
+  const distractors: QuestionDistractor[] = clonedDistractors.map((item, index) => {
+    const newId = letters[index] || `opt-${index}`;
+    if (item.isCorrect) {
+      correctAnswerId = newId;
+      correctIndex = index;
+    }
+    return {
+      id: newId,
+      latex: item.latex,
+      explanation: item.explanation,
+      isCorrect: item.isCorrect,
+    };
+  });
+
+  // Also shuffle sub-questions if present
+  const subQuestions = question.subQuestions?.map((sq) => {
+    const clonedSqDistractors = sq.distractors.map((d) => ({ ...d }));
+    fisherYatesShuffle(clonedSqDistractors);
+    let sqCorrectAnswerId = 'opt-a';
+    let sqCorrectIndex = 0;
+    const sqDistractors: QuestionDistractor[] = clonedSqDistractors.map((item, index) => {
+      const newId = letters[index] || `opt-${index}`;
+      if (item.isCorrect) {
+        sqCorrectAnswerId = newId;
+        sqCorrectIndex = index;
+      }
+      return {
+        id: newId,
+        latex: item.latex,
+        explanation: item.explanation,
+        isCorrect: item.isCorrect,
+      };
+    });
+    return {
+      ...sq,
+      distractors: sqDistractors,
+      correctAnswerId: sqCorrectAnswerId,
+      correctIndex: sqCorrectIndex,
+    };
+  });
+
+  return {
+    ...question,
+    distractors,
+    correctAnswerId,
+    correctIndex,
+    ...(subQuestions ? { subQuestions } : {}),
+  };
+}
+
+/**
+ * Applies in-place Fisher-Yates shuffle to a ZanteQuestion's options,
+ * ensuring uniform 25% distribution across indices 0, 1, 2, 3.
+ * Updates correctIndex to match post-shuffle position.
+ */
+export function shuffleZanteQuestion<T extends ZanteQuestion>(question: T): T {
+  const correctText = question.options[question.correctIndex];
+  const options = [...question.options];
+  fisherYatesShuffle(options);
+  const correctIndex = options.indexOf(correctText);
+
+  return {
+    ...question,
+    options,
+    correctIndex,
+  };
 }
 
 /**

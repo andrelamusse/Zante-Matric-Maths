@@ -31,6 +31,19 @@ export interface QuestionMemo {
   totalMarks: number;
 }
 
+export interface SubQuestion {
+  id: string;
+  partNumber: string; // e.g. "1.1", "1.2", "1.3"
+  marks: number;
+  questionLatex: string;
+  distractors: QuestionDistractor[];
+  correctAnswerId: string;
+  correctIndex?: number;
+  zanteVibeCheck: string;
+  nscMemo: QuestionMemo;
+  formulaRefId?: string;
+}
+
 export interface Question {
   id: string;
   paper: PaperId;
@@ -38,13 +51,16 @@ export interface Question {
   cognitiveLevel: CognitiveLevel;
   marks: number;
   questionLatex: string;
+  stemLatex?: string;
   svgDiagramType?: string;
   svgDiagramParams?: Record<string, any>;
   distractors: QuestionDistractor[];
   correctAnswerId: string;
+  correctIndex?: number;
   zanteVibeCheck: string;
   nscMemo: QuestionMemo;
   formulaRefId?: string;
+  subQuestions?: SubQuestion[];
 }
 
 export interface TopicCheatSheet {

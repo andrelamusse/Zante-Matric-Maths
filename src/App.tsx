@@ -129,7 +129,11 @@ export const App: React.FC = () => {
       showToast(roastToast, 5000);
       if (soundEngine.getAudioMode() === 'meme') {
         soundEngine.playVineBoom();
-        soundEngine.speakReaction("Running back to easy mode? Don't worry, your secret is safe.");
+        if (soundEngine.speakFreshBanter) {
+          soundEngine.speakFreshBanter('special');
+        } else {
+          soundEngine.speakReaction("Running back to easy mode? Don't worry, your secret is safe.");
+        }
       }
     }
   };
@@ -177,14 +181,10 @@ export const App: React.FC = () => {
       const tier = machine.streak >= 20 ? 4 : machine.streak >= 10 ? 3 : machine.streak >= 5 ? 2 : 1;
       soundEngine.playStreakFanfare(tier);
       if (soundEngine.getAudioMode() === 'meme') {
-        if (machine.streak === 5) {
+        if (soundEngine.speakFreshBanter) {
+          soundEngine.speakFreshBanter('streak');
+        } else {
           soundEngine.speakReaction("Five in a row! Who gave you permission to be good at maths too?");
-        } else if (machine.streak === 10) {
-          soundEngine.speakReaction("Ten in a row. Certified academic weapon, screenshot this immediately.");
-        } else if (machine.streak === 20) {
-          soundEngine.speakReaction("Twenty streak! Paper 1 and Paper 2 are literally shaking.");
-        } else if (machine.streak === 3) {
-          soundEngine.speakReaction("Okay wait, she's actually locked in.");
         }
       }
     }

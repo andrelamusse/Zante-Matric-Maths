@@ -10,6 +10,7 @@
  */
 
 import type { AudioMode, SoundEngine } from '../types/audio.ts';
+import { getFreshVoiceLine, type BanterCategory } from './banterMemory.ts';
 
 export class CrystallineSoundEngine implements SoundEngine {
   private ctx: AudioContext | null = null;
@@ -17,6 +18,7 @@ export class CrystallineSoundEngine implements SoundEngine {
   private mode: AudioMode = 'meme';
   private voiceEnabled = true;
   private unlocked = false;
+  private soundListeners: Array<(soundName: string) => void> = [];
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -28,6 +30,8 @@ export class CrystallineSoundEngine implements SoundEngine {
         const savedMode = localStorage.getItem('zante_audio_flavor') as AudioMode | null;
         if (savedMode === 'classy' || savedMode === 'meme') {
           this.mode = savedMode;
+        } else {
+          this.mode = 'meme';
         }
         const savedVoice = localStorage.getItem('zante_voice_enabled');
         if (savedVoice !== null) {
@@ -48,12 +52,39 @@ export class CrystallineSoundEngine implements SoundEngine {
 
     const unlock = () => {
       this.init();
-      window.removeEventListener('pointerdown', unlock);
-      window.removeEventListener('keydown', unlock);
+      if (this.ctx && this.ctx.state === 'suspended') {
+        this.ctx.resume().catch(() => {});
+      }
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('pointerdown', unlock);
+        window.removeEventListener('keydown', unlock);
+        window.removeEventListener('click', unlock);
+      }
     };
 
     window.addEventListener('pointerdown', unlock, { once: true, passive: true });
     window.addEventListener('keydown', unlock, { once: true, passive: true });
+    window.addEventListener('click', unlock, { once: true, passive: true });
+  }
+
+  /**
+   * Register visual listener when sound effect is triggered (even if muted)
+   */
+  public onSoundTriggered(callback: (soundName: string) => void): () => void {
+    this.soundListeners.push(callback);
+    return () => {
+      this.soundListeners = this.soundListeners.filter((cb) => cb !== callback);
+    };
+  }
+
+  private notifySound(soundName: string): void {
+    for (const listener of this.soundListeners) {
+      try {
+        listener(soundName);
+      } catch {
+        // Safe callback execution
+      }
+    }
   }
 
   /**
@@ -162,6 +193,7 @@ export class CrystallineSoundEngine implements SoundEngine {
   // ==========================================
 
   public speakReaction(text: string, options?: { pitch?: number; rate?: number }): void {
+    this.notifySound('Voice Reaction');
     if (!this.enabled || !this.voiceEnabled || typeof window === 'undefined') return;
     if (!('speechSynthesis' in window)) return;
 
@@ -195,6 +227,15 @@ export class CrystallineSoundEngine implements SoundEngine {
     }
   }
 
+  /**
+   * Speaks a non-repeating high-status banter line selected via LRU memory buffer
+   */
+  public speakFreshBanter(category: BanterCategory = 'praise'): string {
+    const line = getFreshVoiceLine(category);
+    this.speakReaction(line);
+    return line;
+  }
+
   public cancelSpeech(): void {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       try {
@@ -210,6 +251,7 @@ export class CrystallineSoundEngine implements SoundEngine {
   // ==========================================
 
   public playGlassChime(): void {
+    this.notifySound('Glass Chime');
     const ctx = this.getContext();
     if (!ctx) return;
 
@@ -241,6 +283,7 @@ export class CrystallineSoundEngine implements SoundEngine {
   }
 
   public playTapPop(): void {
+    this.notifySound('Tap Pop');
     const ctx = this.getContext();
     if (!ctx) return;
 
@@ -266,6 +309,7 @@ export class CrystallineSoundEngine implements SoundEngine {
     if (tier < 0 || tier > 4) {
       throw new Error(`Invalid tier: ${tier}. Streak fanfare tier must be between 0 and 4.`);
     }
+    this.notifySound('Streak Fanfare');
 
     const ctx = this.getContext();
     if (!ctx) return;
@@ -295,6 +339,7 @@ export class CrystallineSoundEngine implements SoundEngine {
   }
 
   public playErrorChime(): void {
+    this.notifySound('Error Chime');
     const ctx = this.getContext();
     if (!ctx) return;
 
@@ -321,6 +366,7 @@ export class CrystallineSoundEngine implements SoundEngine {
   }
 
   public playConfettiBlast(): void {
+    this.notifySound('Confetti Blast');
     const ctx = this.getContext();
     if (!ctx) return;
 
@@ -357,6 +403,7 @@ export class CrystallineSoundEngine implements SoundEngine {
   }
 
   public playShieldShatter(): void {
+    this.notifySound('Shield Shatter');
     const ctx = this.getContext();
     if (!ctx) return;
 
@@ -392,6 +439,7 @@ export class CrystallineSoundEngine implements SoundEngine {
    * Deep sub-bass punch with saturation and 160Hz -> 28Hz exponential dive
    */
   public playVineBoom(): void {
+    this.notifySound('Vine Boom');
     const ctx = this.getContext();
     if (!ctx) return;
 
@@ -440,6 +488,7 @@ export class CrystallineSoundEngine implements SoundEngine {
    * 4 comic descending notes with pitch bend & wah filter
    */
   public playSadTrombone(): void {
+    this.notifySound('Sad Trombone');
     const ctx = this.getContext();
     if (!ctx) return;
 
@@ -487,6 +536,7 @@ export class CrystallineSoundEngine implements SoundEngine {
    * 3. "Bruh" Thud / Bombastic Side-Eye
    */
   public playBruhThud(): void {
+    this.notifySound('Bruh Thud');
     const ctx = this.getContext();
     if (!ctx) return;
 
@@ -512,6 +562,7 @@ export class CrystallineSoundEngine implements SoundEngine {
    * 4. Sparkly "Baddie / Fairy Dust" Shimmer
    */
   public playBaddieShimmer(): void {
+    this.notifySound('Baddie Shimmer');
     const ctx = this.getContext();
     if (!ctx) return;
 
@@ -542,6 +593,7 @@ export class CrystallineSoundEngine implements SoundEngine {
    * 5. Paparazzi Camera Shutter 📸 (Mechanical double-click)
    */
   public playCameraShutter(): void {
+    this.notifySound('Camera Shutter');
     const ctx = this.getContext();
     if (!ctx) return;
 
@@ -583,6 +635,7 @@ export class CrystallineSoundEngine implements SoundEngine {
    * 6. Reggae Airhorn (Iconic triple blast 📯)
    */
   public playAirhorn(): void {
+    this.notifySound('Airhorn');
     const ctx = this.getContext();
     if (!ctx) return;
 
@@ -627,6 +680,7 @@ export class CrystallineSoundEngine implements SoundEngine {
    * 7. Game Show Jackpot (Coin Shower Cascade 💰)
    */
   public playJackpot(): void {
+    this.notifySound('Jackpot');
     const ctx = this.getContext();
     if (!ctx) return;
 

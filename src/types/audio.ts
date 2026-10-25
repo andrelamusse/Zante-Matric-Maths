@@ -23,7 +23,9 @@ export interface SoundEngine {
   setAudioMode(mode: AudioMode): void;
   toggleAudioMode(): AudioMode;
   speakReaction(text: string, options?: { pitch?: number; rate?: number }): void;
+  speakFreshBanter?(category?: string): string;
   cancelSpeech(): void;
   isVoiceEnabled(): boolean;
   toggleVoice(): boolean;
+  onSoundTriggered?(callback: (soundName: string) => void): () => void;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { DifficultyMode } from '../../types/gamification.ts';
 import type { AudioMode } from '../../types/audio.ts';
 import type { ShieldStatus } from '../../state/studioState.ts';
@@ -37,6 +37,24 @@ export const Header: React.FC<HeaderProps> = ({
   const [audioEnabled, setAudioEnabled] = useState(!soundEngine.isMuted());
   const [audioMode, setAudioMode] = useState<AudioMode>(() => soundEngine.getAudioMode());
   const [voiceEnabled, setVoiceEnabled] = useState<boolean>(() => soundEngine.isVoiceEnabled());
+  const [activeSoundName, setActiveSoundName] = useState<string | null>(null);
+  const [soundFlashing, setSoundFlashing] = useState<boolean>(false);
+  const soundFlashTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (soundEngine.onSoundTriggered) {
+      const unsubscribe = soundEngine.onSoundTriggered((soundName: string) => {
+        setActiveSoundName(soundName);
+        setSoundFlashing(true);
+        if (soundFlashTimerRef.current) clearTimeout(soundFlashTimerRef.current);
+        soundFlashTimerRef.current = setTimeout(() => {
+          setSoundFlashing(false);
+          setActiveSoundName(null);
+        }, 900);
+      });
+      return unsubscribe;
+    }
+  }, []);
 
   const tierInfo = getStreakTier(streakCount);
 
@@ -231,15 +249,43 @@ export const Header: React.FC<HeaderProps> = ({
               <span>✏️</span>
             </GlassButton>
 
-            <GlassButton
-              variant="subtle"
-              size="sm"
-              onClick={handleAudioToggle}
-              title={audioEnabled ? 'Master Sound Effects Enabled' : 'Master Sound Effects Muted'}
-              className="!px-2.5 !py-1.5 !min-h-[36px]"
-            >
-              <span>{audioEnabled ? '🔊' : '🔇'}</span>
-            </GlassButton>
+            <div className="relative flex items-center">
+              <GlassButton
+                variant={soundFlashing ? 'primary' : 'subtle'}
+                size="sm"
+                onClick={handleAudioToggle}
+                title={
+                  audioEnabled
+                    ? `Master Sound Effects Enabled ${activeSoundName ? `(Playing: ${activeSoundName})` : ''}`
+                    : `Master Sound Effects Muted ${activeSoundName ? `(Triggered: ${activeSoundName})` : ''}`
+                }
+                className={`!px-2.5 !py-1.5 !min-h-[36px] transition-all relative ${
+                  soundFlashing
+                    ? 'ring-2 ring-pink-500 scale-110 shadow-lg shadow-pink-500/40 bg-pink-100 text-pink-700'
+                    : ''
+                }`}
+              >
+                <span className="flex items-center gap-1">
+                  <span>{audioEnabled ? '🔊' : '🔇'}</span>
+                  {soundFlashing && (
+                    <span className="inline-block w-2 h-2 rounded-full bg-pink-500 animate-ping shrink-0" />
+                  )}
+                </span>
+              </GlassButton>
+
+              {/* Unmistakable visual speaker indicator flash badge */}
+              {soundFlashing && activeSoundName && (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="absolute -bottom-7 right-0 z-50 whitespace-nowrap px-2 py-0.5 rounded-full bg-slate-900/95 text-white text-[10px] font-bold shadow-lg border border-pink-400/60 flex items-center gap-1 pointer-events-none animate-bounce"
+                >
+                  <span className="text-pink-300">♪</span>
+                  <span>{activeSoundName}</span>
+                  {!audioEnabled && <span className="text-amber-300 text-[9px]">(muted)</span>}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

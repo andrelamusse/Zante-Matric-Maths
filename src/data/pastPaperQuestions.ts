@@ -1481,6 +1481,1103 @@ export const PAST_PAPER_QUESTIONS: Question[] = [
       totalMarks: 5,
     },
   },
+
+// -------------------------------------------------------------------------
+  // MULTI-PART 1: CALCULUS (DBE Nov NSC Past Paper Question 8)
+  // -------------------------------------------------------------------------
+  {
+    id: 'PP-CALC-NSC-MP01',
+    paper: 'P1',
+    topic: 'calculus',
+    cognitiveLevel: 'L3',
+    marks: 8,
+    stemLatex: '\\textbf{DBE National Senior Certificate — Paper 1}\\\\ \\text{Given the cubic function } f(x) = 2x^3 - 3x^2 - 12x + 5.',
+    questionLatex: '\\text{Consider the cubic function } f(x) = 2x^3 - 3x^2 - 12x + 5. \\text{ Complete the exam sub-questions below.}',
+    distractors: [
+      {
+        id: 'opt-a',
+        latex: '(2 ; -15) \\quad \\text{and} \\quad (-1 ; 12)',
+        explanation: 'Correct! f\'(x) = 6x² - 6x - 12 = 6(x - 2)(x + 1) = 0. f(2) = -15, f(-1) = 12.',
+        isCorrect: true,
+      },
+      {
+        id: 'opt-b',
+        latex: '(-2 ; 1) \\quad \\text{and} \\quad (1 ; -8)',
+        explanation: 'DIST-SIGN: Flipped critical values from derivative factorization.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-c',
+        latex: '(2 ; 0) \\quad \\text{and} \\quad (-1 ; 0)',
+        explanation: 'Confused stationary points with x-intercepts.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-d',
+        latex: '(2 ; -15) \\text{ only}',
+        explanation: 'Omitted local maximum turning point at x = -1.',
+        isCorrect: false,
+      },
+    ],
+    correctAnswerId: 'opt-a',
+    correctIndex: 0,
+    zanteVibeCheck: 'Stationary points = where f\'(x) = 0. Differentiate: 6x² - 6x - 12 = 0 ⟹ x² - x - 2 = 0 ⟹ (x - 2)(x + 1) = 0. Plug x = 2 and x = -1 into f(x).',
+    nscMemo: {
+      steps: [
+        {
+          stepLatex: "f'(x) = 6x^2 - 6x - 12 = 0",
+          tickAllocation: '\\checkmark\\checkmark\\text{ (Equate derivative to 0)}',
+        },
+        {
+          stepLatex: '6(x - 2)(x + 1) = 0 \\implies x = 2 \\;\\text{or}\\; x = -1',
+          tickAllocation: '\\checkmark\\checkmark\\text{ (Factors and x-values)}',
+        },
+        {
+          stepLatex: 'f(2) = 2(8) - 3(4) - 12(2) + 5 = -15 \\quad \\text{and} \\quad f(-1) = 12',
+          tickAllocation: '\\checkmark\\checkmark\\text{ (Turning point coordinates)}',
+        },
+        {
+          stepLatex: "f''(x) = 12x - 6 = 0 \\implies x = \\frac{1}{2} \\quad \\text{and} \\quad f''(x) > 0 \\implies x > \\frac{1}{2}",
+          tickAllocation: '\\checkmark\\checkmark\\text{ (Point of inflection and concavity)}',
+        },
+      ],
+      totalMarks: 8,
+    },
+    formulaRefId: 'P1-DC-01',
+    subQuestions: [
+      {
+        id: 'PP-CALC-NSC-MP01-1',
+        partNumber: '1.1',
+        marks: 4,
+        questionLatex: '\\text{Calculate the coordinates of the turning points of } f.',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: '(2 ; -15) \\quad \\text{and} \\quad (-1 ; 12)',
+            explanation: 'Correct! f\'(x) = 6x² - 6x - 12 = 6(x - 2)(x + 1) = 0. f(2) = -15, f(-1) = 12.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: '(-2 ; 1) \\quad \\text{and} \\quad (1 ; -8)',
+            explanation: 'DIST-SIGN: Flipped critical values from derivative factorization.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: '(2 ; 0) \\quad \\text{and} \\quad (-1 ; 0)',
+            explanation: 'Confused stationary points with x-intercepts.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: '(2 ; -15) \\text{ only}',
+            explanation: 'Omitted local maximum turning point at x = -1.',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'Stationary points = where f\'(x) = 0. Differentiate: 6x² - 6x - 12 = 0 ⟹ x² - x - 2 = 0 ⟹ (x - 2)(x + 1) = 0. Plug x = 2 and x = -1 into f(x).',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: "f'(x) = 6x^2 - 6x - 12 = 0",
+              tickAllocation: '\\checkmark\\text{ (Equate derivative to 0)}',
+            },
+            {
+              stepLatex: '6(x - 2)(x + 1) = 0 \\implies x = 2 \\;\\text{or}\\; x = -1',
+              tickAllocation: '\\checkmark\\text{ (Factors and x-values)}',
+            },
+            {
+              stepLatex: 'f(2) = 2(8) - 3(4) - 12(2) + 5 = -15',
+              tickAllocation: '\\checkmark\\text{ (y-coordinate 1)}',
+            },
+            {
+              stepLatex: 'f(-1) = 2(-1) - 3(1) - 12(-1) + 5 = 12',
+              tickAllocation: '\\checkmark\\text{ (y-coordinate 2)}',
+            },
+          ],
+          totalMarks: 4,
+        },
+        formulaRefId: 'P1-DC-01',
+      },
+      {
+        id: 'PP-CALC-NSC-MP01-2',
+        partNumber: '1.2',
+        marks: 2,
+        questionLatex: '\\text{Determine the } x\\text{-coordinate of the point of inflection of } f.',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: 'x = \\frac{1}{2}',
+            explanation: 'Correct! Point of inflection occurs where f\'\'(x) = 0: 12x - 6 = 0 ⟹ x = 1/2.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: 'x = -\\frac{1}{2}',
+            explanation: 'DIST-SIGN: Sign error in solving 12x - 6 = 0.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: 'x = 1',
+            explanation: 'Substituted x-value of axis of symmetry of quadratic instead of cubic inflection.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: 'x = 0',
+            explanation: 'Assumed inflection occurs at y-intercept.',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'Point of inflection is simply where the second derivative equals 0! f\'\'(x) = 12x - 6 = 0 ⟹ x = 1/2.',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: "f''(x) = 12x - 6 = 0",
+              tickAllocation: '\\checkmark\\text{ (Second derivative equated to 0)}',
+            },
+            {
+              stepLatex: 'x = \\frac{6}{12} = \\frac{1}{2}',
+              tickAllocation: '\\checkmark\\text{ (Inflection coordinate)}',
+            },
+          ],
+          totalMarks: 2,
+        },
+      },
+      {
+        id: 'PP-CALC-NSC-MP01-3',
+        partNumber: '1.3',
+        marks: 2,
+        questionLatex: '\\text{For which values of } x \\text{ will the graph of } f \\text{ be strictly concave upward?}',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: 'x > \\frac{1}{2}',
+            explanation: 'Correct! Concave upward requires f\'\'(x) > 0: 12x - 6 > 0 ⟹ x > 1/2.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: 'x < \\frac{1}{2}',
+            explanation: 'Identified region where f is concave downward (f\'\'(x) < 0).',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: '-1 < x < 2',
+            explanation: 'Stated the interval where f is decreasing (between stationary points).',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: 'x > 2',
+            explanation: 'Confused concavity with region where f is increasing to the right of local minimum.',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'Concave upward means f\'\'(x) > 0. The curve bends like a smile. 12x - 6 > 0 gives x > 1/2.',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: "f''(x) > 0 \\implies 12x - 6 > 0",
+              tickAllocation: '\\checkmark\\text{ (Condition for concavity)}',
+            },
+            {
+              stepLatex: 'x > \\frac{1}{2}',
+              tickAllocation: '\\checkmark\\text{ (Final inequality)}',
+            },
+          ],
+          totalMarks: 2,
+        },
+      },
+    ],
+  },
+
+  // -------------------------------------------------------------------------
+  // MULTI-PART 2: SEQUENCES & SERIES (DBE May/June NSC Past Paper Question 2)
+  // -------------------------------------------------------------------------
+  {
+    id: 'PP-SEQ-NSC-MP01',
+    paper: 'P1',
+    topic: 'patterns',
+    cognitiveLevel: 'L3',
+    marks: 10,
+    stemLatex: '\\textbf{DBE National Senior Certificate — Paper 1}\\\\ \\text{Given the quadratic number sequence: } 5; \\; 12; \\; 23; \\; 38; \\; \\dots',
+    questionLatex: '\\text{Consider the quadratic pattern: } 5; \\; 12; \\; 23; \\; 38; \\; \\dots \\text{ Complete the sequential exam sub-questions.}',
+    distractors: [
+      {
+        id: 'opt-a',
+        latex: 'T_n = 2n^2 + n + 2',
+        explanation: 'Correct! 2a = 4 ⟹ a = 2; 3a + b = 7 ⟹ b = 1; a + b + c = 5 ⟹ c = 2.',
+        isCorrect: true,
+      },
+      {
+        id: 'opt-b',
+        latex: 'T_n = n^2 + 4n',
+        explanation: 'DIST-DIFF: Incorrect second difference calculation.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-c',
+        latex: 'T_n = 4n^2 - 3n + 4',
+        explanation: 'Assumed second difference 4 was the coefficient a instead of 2a.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-d',
+        latex: 'T_n = 2n^2 + 3n',
+        explanation: 'Omitted constant term c.',
+        isCorrect: false,
+      },
+    ],
+    correctAnswerId: 'opt-a',
+    correctIndex: 0,
+    zanteVibeCheck: 'First differences: 7, 11, 15. Second difference: 4. 2a = 4 ⟹ a = 2. 3(2) + b = 7 ⟹ b = 1. 2 + 1 + c = 5 ⟹ c = 2. General term: Tn = 2n² + n + 2.',
+    nscMemo: {
+      steps: [
+        {
+          stepLatex: '2a = 4 \\implies a = 2, \\quad 3a + b = 7 \\implies b = 1, \\quad a + b + c = 5 \\implies c = 2',
+          tickAllocation: '\\checkmark\\checkmark\\checkmark\\checkmark\\text{ (Differences method for quadratic general term)}',
+        },
+        {
+          stepLatex: '2n^2 + n + 2 = 442 \\implies (2n + 31)(n - 14) = 0 \\implies n = 14',
+          tickAllocation: '\\checkmark\\checkmark\\checkmark\\text{ (Standard form, factors, and integer solution n = 14)}',
+        },
+        {
+          stepLatex: 'S_\\infty = \\frac{a}{1 - r} = \\frac{18}{1 - \\frac{1}{3}} = 27',
+          tickAllocation: '\\checkmark\\checkmark\\checkmark\\text{ (Values of a and r, sum to infinity formula, final answer 27)}',
+        },
+      ],
+      totalMarks: 10,
+    },
+    formulaRefId: 'P1-SQ-01',
+    subQuestions: [
+      {
+        id: 'PP-SEQ-NSC-MP01-1',
+        partNumber: '1.1',
+        marks: 4,
+        questionLatex: '\\text{Determine the general } n^{\\text{th}} \\text{ term } T_n \\text{ of the quadratic sequence.}',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: 'T_n = 2n^2 + n + 2',
+            explanation: 'Correct! 2a = 4 ⟹ a = 2; 3a + b = 7 ⟹ b = 1; a + b + c = 5 ⟹ c = 2.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: 'T_n = n^2 + 4n',
+            explanation: 'DIST-DIFF: Incorrect second difference calculation.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: 'T_n = 4n^2 - 3n + 4',
+            explanation: 'Assumed second difference 4 was the coefficient a instead of 2a.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: 'T_n = 2n^2 + 3n',
+            explanation: 'Omitted constant term c.',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'First differences: 7, 11, 15. Second difference: 4. 2a = 4 ⟹ a = 2. 3(2) + b = 7 ⟹ b = 1. 2 + 1 + c = 5 ⟹ c = 2. General term: Tn = 2n² + n + 2.',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: '2a = 4 \\implies a = 2',
+              tickAllocation: '\\checkmark\\text{ (Second difference = 2a)}',
+            },
+            {
+              stepLatex: '3a + b = 7 \\implies 3(2) + b = 7 \\implies b = 1',
+              tickAllocation: '\\checkmark\\text{ (First difference equation)}',
+            },
+            {
+              stepLatex: 'a + b + c = 5 \\implies 2 + 1 + c = 5 \\implies c = 2',
+              tickAllocation: '\\checkmark\\text{ (Initial term equation)}',
+            },
+            {
+              stepLatex: 'T_n = 2n^2 + n + 2',
+              tickAllocation: '\\checkmark\\text{ (Final general term)}',
+            },
+          ],
+          totalMarks: 4,
+        },
+        formulaRefId: 'P1-SQ-01',
+      },
+      {
+        id: 'PP-SEQ-NSC-MP01-2',
+        partNumber: '1.2',
+        marks: 3,
+        questionLatex: '\\text{Which term of the quadratic sequence is equal to } 442?',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: 'n = 14 \\quad (T_{14} = 442)',
+            explanation: 'Correct! 2n² + n + 2 = 442 ⟹ 2n² + n - 440 = 0 ⟹ (2n + 31)(n - 14) = 0. Since n ∈ ℕ, n = 14.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: 'n = 15 \\quad (T_{15} = 442)',
+            explanation: 'Off-by-one index error in solving quadratic formula.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: 'n = 12 \\quad (T_{12} = 442)',
+            explanation: 'Arithmetic error factoring 440.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: 'n = 20 \\quad (T_{20} = 442)',
+            explanation: 'Rough approximation error.',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'Equate Tn to 442: 2n² + n + 2 = 442 ⟹ 2n² + n - 440 = 0. Factorize or use the quadratic formula to get n = 14. Term number must be a positive integer!',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: '2n^2 + n + 2 = 442 \\implies 2n^2 + n - 440 = 0',
+              tickAllocation: '\\checkmark\\text{ (Standard quadratic form)}',
+            },
+            {
+              stepLatex: '(2n + 31)(n - 14) = 0',
+              tickAllocation: '\\checkmark\\text{ (Factorisation)}',
+            },
+            {
+              stepLatex: 'n = 14 \\quad (n \\in \\mathbb{N})',
+              tickAllocation: '\\checkmark\\text{ (Valid positive integer answer)}',
+            },
+          ],
+          totalMarks: 3,
+        },
+      },
+      {
+        id: 'PP-SEQ-NSC-MP01-3',
+        partNumber: '1.3',
+        marks: 3,
+        questionLatex: '\\text{Evaluate the infinite geometric series } \\sum_{k=1}^{\\infty} 18\\left(\\frac{1}{3}\\right)^{k-1}.',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: 'S_\\infty = 27',
+            explanation: 'Correct! a = 18, r = 1/3. S_∞ = a / (1 - r) = 18 / (1 - 1/3) = 18 / (2/3) = 27.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: 'S_\\infty = 54',
+            explanation: 'Divided 18 by (1/3) instead of (1 - 1/3) = 2/3.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: 'S_\\infty = 18',
+            explanation: 'Assumed sum equals only the first term.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: 'S_\\infty = 24',
+            explanation: 'Substituted r = 1/4 mistakenly.',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'Sum to infinity is simply S_∞ = a / (1 - r). Here a = 18 and r = 1/3. 18 divided by 2/3 is 18 times 3/2 = 27. Clean distinction marks.',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: 'a = 18, \\quad r = \\frac{1}{3}',
+              tickAllocation: '\\checkmark\\text{ (Identify a and r)}',
+            },
+            {
+              stepLatex: 'S_\\infty = \\frac{a}{1 - r} = \\frac{18}{1 - \\frac{1}{3}} = \\frac{18}{\\frac{2}{3}}',
+              tickAllocation: '\\checkmark\\text{ (Substitution into sum to infinity formula)}',
+            },
+            {
+              stepLatex: 'S_\\infty = 27',
+              tickAllocation: '\\checkmark\\text{ (Final evaluated sum)}',
+            },
+          ],
+          totalMarks: 3,
+        },
+        formulaRefId: 'P1-SQ-05',
+      },
+    ],
+  },
+
+  // -------------------------------------------------------------------------
+  // MULTI-PART 3: EUCLIDEAN GEOMETRY RIDER (DBE Nov NSC Past Paper Question 9)
+  // -------------------------------------------------------------------------
+  {
+    id: 'PP-EUC-NSC-MP01',
+    paper: 'P2',
+    topic: 'euclidean_geometry',
+    cognitiveLevel: 'L3',
+    marks: 7,
+    stemLatex: '\\textbf{DBE National Senior Certificate — Paper 2}\\\\ \\text{In the circle with centre } O, \\text{ chords } AB \\text{ and } CD \\text{ are drawn. Line } PT \\text{ is tangent to the circle at } A \\text{ with } \\hat{A}_1 = 48^\\circ. \\text{ Chord } AC \\text{ subtends } \\hat{D}_1 = 48^\\circ. \\text{ Cyclic quad } ABCD \\text{ has } \\hat{B} = 76^\\circ.',
+    questionLatex: '\\text{Refer to the cyclic quad and tangent diagram. Answer the sequential Euclidean geometry sub-questions with official DBE acceptable reasons.}',
+    distractors: [
+      {
+        id: 'opt-a',
+        latex: '[\\text{tan-chord thm}]',
+        explanation: 'Correct! By the tangent-chord theorem, the angle between tangent PT and chord AC equals the angle in the alternate segment D_1.',
+        isCorrect: true,
+      },
+      {
+        id: 'opt-b',
+        latex: '[\\text{alt. } \\angle\\text{s } =]',
+        explanation: 'No parallel lines were given in the rider.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-c',
+        latex: '[\\angle\\text{s in same seg.}]',
+        explanation: 'A_1 is formed by a tangent and chord outside the circle, not subtended by an arc.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-d',
+        latex: '[\\text{opp. } \\angle\\text{s of cyclic quad}]',
+        explanation: 'Angles A_1 and D_1 are not opposite angles of a cyclic quad.',
+        isCorrect: false,
+      },
+    ],
+    correctAnswerId: 'opt-a',
+    correctIndex: 0,
+    zanteVibeCheck: 'Angle between tangent PT and chord AC equals angle D_1 in the alternate segment. Official CAPS reason: [tan-chord thm]. Keep your reasons verbatim from the exam guideline.',
+    nscMemo: {
+      steps: [
+        {
+          stepLatex: '\\hat{D}_1 = \\hat{A}_1 = 48^\\circ \\quad [\\text{tan-chord thm}]',
+          tickAllocation: '\\checkmark\\checkmark\\text{ (Statement and official reason)}',
+        },
+        {
+          stepLatex: '\\hat{B} + \\hat{D} = 180^\\circ \\quad [\\text{opp. } \\angle\\text{s of cyclic quad supp.}] \\implies \\hat{D} = 104^\\circ',
+          tickAllocation: '\\checkmark\\checkmark\\checkmark\\text{ (Statement, reason, and angle D size)}',
+        },
+        {
+          stepLatex: '\\hat{D}_2 = \\hat{D} - \\hat{D}_1 = 104^\\circ - 48^\\circ = 56^\\circ',
+          tickAllocation: '\\checkmark\\checkmark\\text{ (Angle difference and final size of D2)}',
+        },
+      ],
+      totalMarks: 7,
+    },
+    subQuestions: [
+      {
+        id: 'PP-EUC-NSC-MP01-1',
+        partNumber: '1.1',
+        marks: 2,
+        questionLatex: '\\text{State the official DBE acceptable reason why } \\hat{D}_1 = \\hat{A}_1 = 48^\\circ.',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: '[\\text{tan-chord thm}]',
+            explanation: 'Correct! By the tangent-chord theorem, the angle between tangent PT and chord AC equals the angle in the alternate segment D_1.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: '[\\text{alt. } \\angle\\text{s } =]',
+            explanation: 'No parallel lines were given in the rider.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: '[\\angle\\text{s in same seg.}]',
+            explanation: 'A_1 is formed by a tangent and chord outside the circle, not subtended by an arc.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: '[\\text{opp. } \\angle\\text{s of cyclic quad}]',
+            explanation: 'Angles A_1 and D_1 are not opposite angles of a cyclic quad.',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'Angle between tangent PT and chord AC equals angle D_1 in the alternate segment. Official CAPS reason: [tan-chord thm]. Keep your reasons verbatim from the exam guideline.',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: '\\hat{D}_1 = \\hat{A}_1 = 48^\\circ',
+              tickAllocation: '\\checkmark\\text{ (Statement: angle equality)}',
+            },
+            {
+              stepLatex: '[\\text{tan-chord thm}]',
+              tickAllocation: '\\checkmark\\text{ (Official DBE acceptable reason)}',
+            },
+          ],
+          totalMarks: 2,
+        },
+      },
+      {
+        id: 'PP-EUC-NSC-MP01-2',
+        partNumber: '1.2',
+        marks: 3,
+        questionLatex: '\\text{Calculate with reasons the size of entire angle } \\hat{D} \\text{ in cyclic quad } ABCD \\;(\\text{given } \\hat{B} = 76^\\circ).',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: '\\hat{D} = 104^\\circ \\quad [\\text{opp. } \\angle\\text{s of cyclic quad supp.}]',
+            explanation: 'Correct! Opposite angles of cyclic quadrilateral sum to 180°: 180° - 76° = 104°.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: '\\hat{D} = 76^\\circ \\quad [\\text{opp. } \\angle\\text{s of cyclic quad =}]',
+            explanation: 'Opposite angles of a cyclic quad are supplementary, not equal.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: '\\hat{D} = 90^\\circ \\quad [\\angle \\text{ in semi-circle}]',
+            explanation: 'No diameter was specified subtending angle D.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: '\\hat{D} = 132^\\circ \\quad [\\text{adj. } \\angle\\text{s on str. line}]',
+            explanation: 'Subtracted 48° from 180° incorrectly instead of using opposite angle B.',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'Opposite angles of a cyclic quad add up to 180°: 180° - 76° = 104°. Reason: [opp. angles of cyclic quad supp].',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: '\\hat{B} + \\hat{D} = 180^\\circ \\quad [\\text{opp. } \\angle\\text{s of cyclic quad supp.}]',
+              tickAllocation: '\\checkmark\\checkmark\\text{ (Statement and acceptable reason)}',
+            },
+            {
+              stepLatex: '\\hat{D} = 180^\\circ - 76^\\circ = 104^\\circ',
+              tickAllocation: '\\checkmark\\text{ (Calculation of angle D)}',
+            },
+          ],
+          totalMarks: 3,
+        },
+      },
+      {
+        id: 'PP-EUC-NSC-MP01-3',
+        partNumber: '1.3',
+        marks: 2,
+        questionLatex: '\\text{Hence, calculate the size of } \\hat{D}_2 \\;(\\text{where } \\hat{D} = \\hat{D}_1 + \\hat{D}_2).',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: '\\hat{D}_2 = 56^\\circ',
+            explanation: 'Correct! D_2 = D - D_1 = 104° - 48° = 56°.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: '\\hat{D}_2 = 48^\\circ',
+            explanation: 'Assumed D was bisected by chord CD.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: '\\hat{D}_2 = 76^\\circ',
+            explanation: 'Confused with angle B.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: '\\hat{D}_2 = 38^\\circ',
+            explanation: 'Halved angle B without geometric justification.',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'The whole angle D is 104°, and D_1 is 48°. Subtract them to get D_2 = 56°. Clean and swift.',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: '\\hat{D}_2 = \\hat{D} - \\hat{D}_1 = 104^\\circ - 48^\\circ',
+              tickAllocation: '\\checkmark\\text{ (Adjacent angle difference)}',
+            },
+            {
+              stepLatex: '\\hat{D}_2 = 56^\\circ',
+              tickAllocation: '\\checkmark\\text{ (Final numerical answer)}',
+            },
+          ],
+          totalMarks: 2,
+        },
+      },
+    ],
+  },
+
+  // -------------------------------------------------------------------------
+  // MULTI-PART 4: ANALYTICAL GEOMETRY (Provincial Trials NSC Exam — Paper 2)
+  // -------------------------------------------------------------------------
+  {
+    id: 'PP-ANA-NSC-MP01',
+    paper: 'P2',
+    topic: 'analytical_geometry',
+    cognitiveLevel: 'L3',
+    marks: 8,
+    stemLatex: '\\textbf{Provincial Preparatory Examination — Paper 2}\\\\ \\text{In the Cartesian plane, the circle with centre } M(1, -2) \\text{ has equation } (x - 1)^2 + (y + 2)^2 = 25. \\text{ Line } AB \\text{ is tangent to the circle at } P(4, 2).',
+    questionLatex: '\\text{Refer to circle } M \\text{ with tangent } AB \\text{ at } P(4, 2). \\text{ Answer the sub-questions below.}',
+    distractors: [
+      {
+        id: 'opt-a',
+        latex: 'm_{MP} = \\frac{4}{3}',
+        explanation: 'Correct! m = (y2 - y1) / (x2 - x1) = (2 - (-2)) / (4 - 1) = 4/3.',
+        isCorrect: true,
+      },
+      {
+        id: 'opt-b',
+        latex: 'm_{MP} = -\\frac{3}{4}',
+        explanation: 'Calculated gradient of tangent instead of radius MP.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-c',
+        latex: 'm_{MP} = \\frac{3}{4}',
+        explanation: 'DIST-INV: Inverted dx/dy instead of dy/dx.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-d',
+        latex: 'm_{MP} = -\\frac{4}{3}',
+        explanation: 'DIST-SIGN: Sign error subtracting negative y-coordinate.',
+        isCorrect: false,
+      },
+    ],
+    correctAnswerId: 'opt-a',
+    correctIndex: 0,
+    zanteVibeCheck: 'Gradient of radius MP = (2 - (-2)) / (4 - 1) = 4/3. Remember that tangent AB is perpendicular to MP, so m_tan = -3/4.',
+    nscMemo: {
+      steps: [
+        {
+          stepLatex: 'm_{MP} = \\frac{2 - (-2)}{4 - 1} = \\frac{4}{3}',
+          tickAllocation: '\\checkmark\\checkmark\\text{ (Radius gradient substitution and value)}',
+        },
+        {
+          stepLatex: 'm_{\\text{tan}} = -\\frac{3}{4} \\implies y - 2 = -\\frac{3}{4}(x - 4) \\implies y = -\\frac{3}{4}x + 5',
+          tickAllocation: '\\checkmark\\checkmark\\checkmark\\text{ (Perpendicular gradient, substitution of P, and equation)}',
+        },
+        {
+          stepLatex: '\\tan \\theta = -\\frac{3}{4} \\implies \\theta = 180^\\circ - 36.87^\\circ = 143.13^\\circ',
+          tickAllocation: '\\checkmark\\checkmark\\checkmark\\text{ (Gradient relation, reference angle, and inclination)}',
+        },
+      ],
+      totalMarks: 8,
+    },
+    formulaRefId: 'P2-AG-03',
+    subQuestions: [
+      {
+        id: 'PP-ANA-NSC-MP01-1',
+        partNumber: '1.1',
+        marks: 2,
+        questionLatex: '\\text{Calculate the gradient of the radius } MP.',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: 'm_{MP} = \\frac{4}{3}',
+            explanation: 'Correct! m = (y2 - y1) / (x2 - x1) = (2 - (-2)) / (4 - 1) = 4/3.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: 'm_{MP} = -\\frac{3}{4}',
+            explanation: 'Calculated gradient of tangent instead of radius MP.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: 'm_{MP} = \\frac{3}{4}',
+            explanation: 'DIST-INV: Inverted dx/dy instead of dy/dx.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: 'm_{MP} = -\\frac{4}{3}',
+            explanation: 'DIST-SIGN: Sign error subtracting negative y-coordinate.',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'Gradient of radius MP = (2 - (-2)) / (4 - 1) = 4/3. Remember that tangent AB is perpendicular to MP, so m_tan = -3/4.',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: 'm_{MP} = \\frac{2 - (-2)}{4 - 1}',
+              tickAllocation: '\\checkmark\\text{ (Gradient formula substitution)}',
+            },
+            {
+              stepLatex: 'm_{MP} = \\frac{4}{3}',
+              tickAllocation: '\\checkmark\\text{ (Simplified gradient of radius)}',
+            },
+          ],
+          totalMarks: 2,
+        },
+        formulaRefId: 'P2-AG-03',
+      },
+      {
+        id: 'PP-ANA-NSC-MP01-2',
+        partNumber: '1.2',
+        marks: 3,
+        questionLatex: '\\text{Determine the equation of the tangent } AB \\text{ in the form } y = mx + c.',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: 'y = -\\frac{3}{4}x + 5',
+            explanation: 'Correct! m_tan = -3/4. y - 2 = -3/4(x - 4) ⟹ y = -3/4x + 3 + 2 = -3/4x + 5.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: 'y = \\frac{4}{3}x - \\frac{10}{3}',
+            explanation: 'Used gradient of radius instead of perpendicular tangent gradient.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: 'y = -\\frac{4}{3}x + \\frac{22}{3}',
+            explanation: 'Inverted sign without reciprocating gradient.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: 'y = -\\frac{3}{4}x + 2',
+            explanation: 'Substituted y-intercept c as 2 without expanding -3/4(-4).',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'Tangent perpendicular to radius means m_tan * m_rad = -1, so m_tan = -3/4. Use point P(4, 2): y - 2 = -3/4(x - 4) gives y = -3/4x + 5.',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: 'm_{\\text{tan}} = -\\frac{3}{4} \\quad [\\text{tan } \\perp \\text{ radius}]',
+              tickAllocation: '\\checkmark\\text{ (Perpendicular gradient)}',
+            },
+            {
+              stepLatex: 'y - 2 = -\\frac{3}{4}(x - 4)',
+              tickAllocation: '\\checkmark\\text{ (Substitution of P(4, 2))}',
+            },
+            {
+              stepLatex: 'y = -\\frac{3}{4}x + 5',
+              tickAllocation: '\\checkmark\\text{ (Standard form y = mx + c)}',
+            },
+          ],
+          totalMarks: 3,
+        },
+        formulaRefId: 'P2-AG-04',
+      },
+      {
+        id: 'PP-ANA-NSC-MP01-3',
+        partNumber: '1.3',
+        marks: 3,
+        questionLatex: '\\text{Calculate the angle of inclination } \\theta \\text{ of tangent } AB \\text{ rounded to two decimal places.}',
+        distractors: [
+          {
+            id: 'opt-a',
+            latex: '\\theta = 143.13^\\circ',
+            explanation: 'Correct! tan θ = -3/4 = -0.75 ⟹ θ = 180° - 36.87° = 143.13°.',
+            isCorrect: true,
+          },
+          {
+            id: 'opt-b',
+            latex: '\\theta = 36.87^\\circ',
+            explanation: 'Gave the reference angle without adding 180° for negative gradient.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-c',
+            latex: '\\theta = 126.87^\\circ',
+            explanation: 'Calculated inclination using -4/3 instead of -3/4.',
+            isCorrect: false,
+          },
+          {
+            id: 'opt-d',
+            latex: '\\theta = 53.13^\\circ',
+            explanation: 'Subtracted reference angle from 90° instead of 180°.',
+            isCorrect: false,
+          },
+        ],
+        correctAnswerId: 'opt-a',
+        correctIndex: 0,
+        zanteVibeCheck: 'Negative gradient m = -0.75. Angle of inclination θ = 180° + tan⁻¹(-0.75) = 180° - 36.87° = 143.13°. Never leave an inclination angle negative in matric maths!',
+        nscMemo: {
+          steps: [
+            {
+              stepLatex: '\\tan \\theta = -\\frac{3}{4}',
+              tickAllocation: '\\checkmark\\text{ (Definition: tan theta = m)}',
+            },
+            {
+              stepLatex: '\\text{ref } \\angle = 36.87^\\circ',
+              tickAllocation: '\\checkmark\\text{ (Reference angle)}',
+            },
+            {
+              stepLatex: '\\theta = 180^\\circ - 36.87^\\circ = 143.13^\\circ',
+              tickAllocation: '\\checkmark\\text{ (Accurate angle of inclination)}',
+            },
+          ],
+          totalMarks: 3,
+        },
+        formulaRefId: 'P2-AG-05',
+      },
+    ],
+  },
+
+  // -------------------------------------------------------------------------
+  // AUTHENTIC SINGLE QUESTIONS (CAPS NSC RIGOUR)
+  // -------------------------------------------------------------------------
+  {
+    id: 'PP-CALC-REM-01',
+    paper: 'P1',
+    topic: 'calculus',
+    cognitiveLevel: 'L2',
+    marks: 4,
+    questionLatex: '\\text{The polynomial } P(x) = x^3 - 4x^2 + kx + 6 \\text{ has } (x - 3) \\text{ as a factor. Determine the value of } k.',
+    distractors: [
+      {
+        id: 'opt-a',
+        latex: 'k = 1',
+        explanation: 'Correct! By the factor theorem, P(3) = 0 ⟹ (3)³ - 4(3)² + 3k + 6 = 27 - 36 + 3k + 6 = 3k - 3 = 0 ⟹ k = 1.',
+        isCorrect: true,
+      },
+      {
+        id: 'opt-b',
+        latex: 'k = -1',
+        explanation: 'DIST-SIGN: Sign error in solving 3k - 3 = 0.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-c',
+        latex: 'k = 3',
+        explanation: 'Evaluated P(-3) instead of P(3).',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-d',
+        latex: 'k = 5',
+        explanation: 'Arithmetic error when summing constants 27 - 36 + 6.',
+        isCorrect: false,
+      },
+    ],
+    correctAnswerId: 'opt-a',
+    correctIndex: 0,
+    zanteVibeCheck: 'Factor Theorem: if (x - 3) is a factor, then P(3) = 0. Plug in 3: 27 - 36 + 3k + 6 = 0 ⟹ 3k - 3 = 0 ⟹ k = 1. Immediate distinction marks.',
+    nscMemo: {
+      steps: [
+        {
+          stepLatex: 'P(3) = (3)^3 - 4(3)^2 + k(3) + 6 = 0',
+          tickAllocation: '\\checkmark\\checkmark\\text{ (Apply factor theorem P(3) = 0)}',
+        },
+        {
+          stepLatex: '27 - 36 + 3k + 6 = 0 \\implies 3k - 3 = 0',
+          tickAllocation: '\\checkmark\\text{ (Simplification)}',
+        },
+        {
+          stepLatex: 'k = 1',
+          tickAllocation: '\\checkmark\\text{ (Value of k)}',
+        },
+      ],
+      totalMarks: 4,
+    },
+  },
+  {
+    id: 'PP-CALC-OPT-01',
+    paper: 'P1',
+    topic: 'calculus',
+    cognitiveLevel: 'L4',
+    marks: 6,
+    questionLatex:
+      '\\text{An open rectangular box with a square base of side } x \\text{ cm and height } h \\text{ cm has a total surface area of } 108\\text{ cm}^2. \\text{ Determine the value of } x \\text{ that maximizes the volume of the box.}',
+    distractors: [
+      {
+        id: 'opt-a',
+        latex: 'x = 6\\text{ cm}',
+        explanation: 'Correct! Surface area: x² + 4xh = 108 ⟹ h = (108 - x²)/(4x). V(x) = x²h = 27x - 0.25x³. V\'(x) = 27 - 0.75x² = 0 ⟹ x² = 36 ⟹ x = 6.',
+        isCorrect: true,
+      },
+      {
+        id: 'opt-b',
+        latex: 'x = 3\\text{ cm}',
+        explanation: 'Divided 36 by 2 instead of taking square root.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-c',
+        latex: 'x = 9\\text{ cm}',
+        explanation: 'Assumed closed box with top surface area 2x².',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-d',
+        latex: 'x = 12\\text{ cm}',
+        explanation: 'Arithmetic error differentiating 27x - 0.25x³.',
+        isCorrect: false,
+      },
+    ],
+    correctAnswerId: 'opt-a',
+    correctIndex: 0,
+    zanteVibeCheck:
+      'Classic CAPS Optimization: express h in terms of x: h = (108 - x²)/(4x). Volume V = x²h = 27x - x³/4. Differentiate: V\'(x) = 27 - 3x²/4 = 0 ⟹ x² = 36 ⟹ x = 6 cm.',
+    nscMemo: {
+      steps: [
+        {
+          stepLatex: 'x^2 + 4xh = 108 \\implies h = \\frac{108 - x^2}{4x}',
+          tickAllocation: '\\checkmark\\checkmark\\text{ (Surface area relationship and subject h)}',
+        },
+        {
+          stepLatex: "V(x) = 27x - \\frac{1}{4}x^3 \\implies V'(x) = 27 - \\frac{3}{4}x^2 = 0 \\implies x^2 = 36",
+          tickAllocation: '\\checkmark\\checkmark\\checkmark\\text{ (Volume expression and derivative equated to 0)}',
+        },
+        {
+          stepLatex: 'x = 6\\text{ cm} \\quad (x > 0)',
+          tickAllocation: '\\checkmark\\text{ (Optimal dimension)}',
+        },
+      ],
+      totalMarks: 6,
+    },
+  },
+  {
+    id: 'PP-SEQ-SIG-01',
+    paper: 'P1',
+    topic: 'patterns',
+    cognitiveLevel: 'L2',
+    marks: 4,
+    questionLatex: '\\text{Evaluate the arithmetic series in sigma notation: } \\sum_{k=3}^{12} (4k - 5).',
+    distractors: [
+      {
+        id: 'opt-a',
+        latex: '250',
+        explanation: 'Correct! Terms n = 12 - 3 + 1 = 10. First term a = 4(3) - 5 = 7. Last term l = 4(12) - 5 = 43. S10 = 10/2 * (7 + 43) = 5 * 50 = 250.',
+        isCorrect: true,
+      },
+      {
+        id: 'opt-b',
+        latex: '225',
+        explanation: 'DIST-N: Used n = 12 - 3 = 9 terms instead of (top - bottom + 1) = 10.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-c',
+        latex: '280',
+        explanation: 'Included k = 1 and k = 2 terms in total.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-d',
+        latex: '300',
+        explanation: 'Multiplied top limit 12 by average without index shift.',
+        isCorrect: false,
+      },
+    ],
+    correctAnswerId: 'opt-a',
+    correctIndex: 0,
+    zanteVibeCheck: 'Sigma trap warning: number of terms n = top - bottom + 1 = 12 - 3 + 1 = 10 terms! First term a = 4(3) - 5 = 7. Last term l = 4(12) - 5 = 43. Sum = (10/2)(7 + 43) = 5 × 50 = 250.',
+    nscMemo: {
+      steps: [
+        {
+          stepLatex: 'n = 12 - 3 + 1 = 10',
+          tickAllocation: '\\checkmark\\text{ (Number of terms: top - bottom + 1)}',
+        },
+        {
+          stepLatex: 'T_3 = 4(3) - 5 = 7, \\quad T_{12} = 4(12) - 5 = 43',
+          tickAllocation: '\\checkmark\\text{ (First and last terms)}',
+        },
+        {
+          stepLatex: 'S_{10} = \\frac{10}{2}(7 + 43) = 5(50)',
+          tickAllocation: '\\checkmark\\text{ (Substitution into arithmetic sum)}',
+        },
+        {
+          stepLatex: '= 250',
+          tickAllocation: '\\checkmark\\text{ (Final evaluated sum)}',
+        },
+      ],
+      totalMarks: 4,
+    },
+    formulaRefId: 'P1-SQ-02b',
+  },
+  {
+    id: 'PP-ANA-ALT-01',
+    paper: 'P2',
+    topic: 'analytical_geometry',
+    cognitiveLevel: 'L3',
+    marks: 5,
+    questionLatex: '\\text{In } \\triangle ABC, \\text{ vertex } A(2, 5) \\text{ is given and the opposite side } BC \\text{ has equation } 2x - 3y + 6 = 0. \\text{ Determine the equation of the altitude from } A \\text{ to } BC \\text{ in the form } y = mx + c.',
+    distractors: [
+      {
+        id: 'opt-a',
+        latex: 'y = -\\frac{3}{2}x + 8',
+        explanation: 'Correct! Side BC has gradient m_BC = 2/3. Altitude is perpendicular: m_alt = -3/2. y - 5 = -3/2(x - 2) ⟹ y = -3/2x + 8.',
+        isCorrect: true,
+      },
+      {
+        id: 'opt-b',
+        latex: 'y = \\frac{2}{3}x + \\frac{11}{3}',
+        explanation: 'Used parallel gradient instead of perpendicular altitude gradient.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-c',
+        latex: 'y = -\\frac{2}{3}x + \\frac{19}{3}',
+        explanation: 'Changed sign but did not take reciprocal of gradient.',
+        isCorrect: false,
+      },
+      {
+        id: 'opt-d',
+        latex: 'y = \\frac{3}{2}x + 2',
+        explanation: 'Reciprocated gradient without inverting the sign.',
+        isCorrect: false,
+      },
+    ],
+    correctAnswerId: 'opt-a',
+    correctIndex: 0,
+    zanteVibeCheck: 'An altitude is perpendicular to the opposite side! Rewrite 2x - 3y + 6 = 0 as y = 2/3x + 2. Gradient is 2/3, so perpendicular altitude gradient is -3/2. Plug in A(2, 5) to get y = -3/2x + 8.',
+    nscMemo: {
+      steps: [
+        {
+          stepLatex: '3y = 2x + 6 \\implies y = \\frac{2}{3}x + 2 \\implies m_{BC} = \\frac{2}{3}',
+          tickAllocation: '\\checkmark\\text{ (Gradient of side BC)}',
+        },
+        {
+          stepLatex: 'm_{\\text{alt}} = -\\frac{3}{2} \\quad [m_1 \\times m_2 = -1]',
+          tickAllocation: '\\checkmark\\checkmark\\text{ (Perpendicular gradient of altitude)}',
+        },
+        {
+          stepLatex: 'y - 5 = -\\frac{3}{2}(x - 2)',
+          tickAllocation: '\\checkmark\\text{ (Substitution of vertex A(2, 5))}',
+        },
+        {
+          stepLatex: 'y = -\\frac{3}{2}x + 8',
+          tickAllocation: '\\checkmark\\text{ (Final equation)}',
+        },
+      ],
+      totalMarks: 5,
+    },
+    formulaRefId: 'P2-AG-04',
+  },
 ];
 
 export function getPastPaperQuestions(): Question[] {

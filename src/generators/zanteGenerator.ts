@@ -1,4 +1,5 @@
 import type { ZanteQuestion, ZanteCategory } from '../types/gamification.ts';
+import { fisherYatesShuffle } from './utils.ts';
 
 /**
  * Zante's Matric Maths Studio — Parametric Zante Question Generator
@@ -21,18 +22,10 @@ function shuffleWithOptions<T>(correctItem: T, distractors: T[]): { options: T[]
     uniqueDistractors.push(`Option ${uniqueDistractors.length + 2}` as unknown as T);
   }
 
-  const selectedDistractors = uniqueDistractors.slice(0, 3);
-  const correctIndex = Math.floor(Math.random() * 4);
-  const options: T[] = [];
-
-  let distractorIdx = 0;
-  for (let i = 0; i < 4; i++) {
-    if (i === correctIndex) {
-      options.push(correctItem);
-    } else {
-      options.push(selectedDistractors[distractorIdx++]);
-    }
-  }
+  const options: T[] = [correctItem, ...uniqueDistractors.slice(0, 3)];
+  // In-place Fisher-Yates shuffle directly on options array
+  fisherYatesShuffle(options);
+  const correctIndex = options.indexOf(correctItem);
 
   return { options, correctIndex };
 }
