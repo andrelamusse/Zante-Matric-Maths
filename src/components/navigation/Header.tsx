@@ -125,14 +125,14 @@ export const Header: React.FC<HeaderProps> = ({
           <div>
             <div className="flex items-center gap-1.5 sm:gap-2">
               <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight">
-                Zante's Matric Maths
+                Zante's Matric Maths Studio — Paper 2 Edition
               </h1>
               <span className="hidden sm:inline-block text-xs font-semibold px-2 py-0.5 rounded-full bg-pink-100/80 text-pink-700 border border-pink-200">
-                CAPS 2026
+                150 Marks
               </span>
             </div>
             <p className="text-[11px] text-slate-500 hidden md:block">
-              Grade 12 Pure Mathematics • Dual-Mode Studio
+              South African DBE CAPS Grade 12 Pure Mathematics • Paper 2 Special Edition
             </p>
           </div>
         </div>

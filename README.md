@@ -1,8 +1,8 @@
-# 🌟 Zante's Matric Maths Studio (Grade 12 CAPS Pure Mathematics)
+# 🌟 Zante's Matric Maths Studio — Paper 2 Edition (Grade 12 CAPS Pure Mathematics)
 
-A high-performance, self-contained interactive web application built by **Andre** for **Zante**, an 18-year-old Grade 12 Matriculant (Class of 2026) preparing for her **South African CAPS National Senior Certificate (NSC) Pure Mathematics (Paper 1 & Paper 2)** examinations.
+A high-performance, self-contained interactive web application built by **Andre** for **Zante**, an 18-year-old Grade 12 Matriculant (Class of 2026) preparing exclusively for her **South African CAPS National Senior Certificate (NSC) Mathematics Paper 2 (150 Marks)** examinations.
 
-The studio pairs serious, exam-accurate Matric preparation with effortless 2026 18-year-old energy, feisty/witty screenshot-worthy banter, hidden milestones, viral meme sound effects, and an **Apple Design Award–caliber Liquid Glass & Iridescent Prismatic White UI**.
+The studio pairs serious, Paper 2 exam-accurate Matric preparation (Statistics, Analytical Geometry, Trigonometry, Euclidean Geometry) with effortless 2026 18-year-old energy, feisty/witty screenshot-worthy banter, hidden milestones, viral meme sound effects, and an **Apple Design Award–caliber Liquid Glass & Iridescent Prismatic White UI**.
 
 ---
 

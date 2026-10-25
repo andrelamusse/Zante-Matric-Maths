@@ -33,8 +33,25 @@ import GlassScratchpad from './components/tools/GlassScratchpad.tsx';
 import ViphypeVaultModal from './components/gamification/ViphypeVaultModal.tsx';
 
 export const App: React.FC = () => {
-  // 1. Persistent Studio State
-  const [studioState, setStudioState] = useState<ZanteStudioState>(() => loadStudioState());
+  // 1. Persistent Studio State - Default to Paper 2 Special Edition
+  const [studioState, setStudioState] = useState<ZanteStudioState>(() => {
+    const loaded = loadStudioState();
+    if (!loaded || loaded.activePaper !== 'P2') {
+      return {
+        ...loaded,
+        activePaper: 'P2',
+        activeTopic: 'statistics',
+      };
+    }
+    return loaded;
+  });
+
+  // Set document title for Paper 2 Special Edition
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.title = "Zante's Matric Maths Studio — Paper 2 Edition";
+    }
+  }, []);
 
   // 2. Navigation Tabs
   const [activeTab, setActiveTab] = useState<MainNavTab>('practice');

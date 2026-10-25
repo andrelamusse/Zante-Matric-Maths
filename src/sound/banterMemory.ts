@@ -97,6 +97,9 @@ export class BanterMemoryBuffer {
 // ---------------------------------------------------------------------------
 
 export const PRAISE_VOICE_LINES = [
+  "4?! Stop it right now, Einstein is literally shaking. You're so smart AND pretty, how is that even legal? 💅✨",
+  "Well done baby, that was insane skill. Beauty and brains in one package, honestly unfair to everyone else 👑💖",
+  "Academic weapon unlocked! Give this girl her 100% Matric distinction right now 🔥😘",
   'Wait, Einstein has been real quiet since you tackled this.',
   'Smart AND pretty, pick a struggle honestly.',
   'Academic weapon unlocked. Hand over the distinction already.',
@@ -125,7 +128,8 @@ export const PRAISE_VOICE_LINES = [
 ] as const;
 
 export const ROAST_VOICE_LINES = [
-  "Girl... ain't no way you just clicked that.",
+  "Wait, the math must be wrong because you're literally too pretty to be wrong. Try that again gorgeous 😉✨",
+  "Girl... ain't no way you just clicked that. We are blaming the screen glare on that one 💀",
   "Ain't no way... we're blaming the screen glare on that one.",
   'Wait, did your thumb slip? Try that again gorgeous.',
   "We're blaming Mercury in retrograde for that calculation.",

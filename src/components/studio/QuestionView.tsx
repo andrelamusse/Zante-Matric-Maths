@@ -71,11 +71,19 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
   // ---------------------------------------------------------------------------
   // Andre Mode State & Multi-Part Sub-Questions
   // ---------------------------------------------------------------------------
+  const P2_TOPICS: TopicId[] = ['statistics', 'analytical_geometry', 'trigonometry', 'euclidean_geometry'];
+
   const [andreQuestion, setAndreQuestion] = useState<Question>(() => {
+    const isP2 = activePaper === 'P2';
     const topicFiltered = PAST_PAPER_QUESTIONS.filter(
-      (q) => q.paper === activePaper && (!activeTopic || q.topic === activeTopic)
+      (q) =>
+        (isP2 ? q.paper === 'P2' && P2_TOPICS.includes(q.topic) : q.paper === activePaper) &&
+        (!activeTopic || q.topic === activeTopic)
     );
-    const q = topicFiltered[0] || PAST_PAPER_QUESTIONS[0];
+    const q =
+      topicFiltered[0] ||
+      (isP2 ? PAST_PAPER_QUESTIONS.find((p) => p.paper === 'P2' && P2_TOPICS.includes(p.topic)) : PAST_PAPER_QUESTIONS[0]) ||
+      PAST_PAPER_QUESTIONS[0];
     return shuffleQuestionDistractors(q);
   });
   const [selectedDistractorId, setSelectedDistractorId] = useState<string | null>(null);
@@ -105,17 +113,21 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
   // Re-sync Andre question when activePaper or activeTopic changes
   useEffect(() => {
     if (difficultyMode === 'andre') {
+      const isP2 = activePaper === 'P2';
+      const effectiveTopic = activeTopic && (!isP2 || P2_TOPICS.includes(activeTopic)) ? activeTopic : undefined;
       const available = PAST_PAPER_QUESTIONS.filter(
-        (q) => q.paper === activePaper && (!activeTopic || q.topic === activeTopic)
+        (q) =>
+          (isP2 ? q.paper === 'P2' && P2_TOPICS.includes(q.topic) : q.paper === activePaper) &&
+          (!effectiveTopic || q.topic === effectiveTopic)
       );
       let chosen: Question;
       if (available.length > 0) {
         chosen = available[Math.floor(Math.random() * available.length)];
       } else {
         chosen =
-          activePaper === 'P1'
-            ? generateP1Question(activeTopic)
-            : generateP2Question(activeTopic);
+          isP2
+            ? generateP2Question(effectiveTopic && P2_TOPICS.includes(effectiveTopic) ? effectiveTopic : 'statistics')
+            : generateP1Question(effectiveTopic);
       }
       setAndreQuestion(shuffleQuestionDistractors(chosen));
       setSelectedDistractorId(null);
@@ -148,7 +160,12 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
           : getFreshVoiceLine('praise');
         setZanteToast(pick);
       } else {
-        setZanteToast(currentZanteQ.wittyToast);
+        const flirtyCompliments = [
+          "4?! Stop it right now, Einstein is literally shaking. You're so smart AND pretty, how is that even legal? 💅✨",
+          "Well done baby, that was insane skill. Beauty and brains in one package, honestly unfair to everyone else 👑💖",
+          "Academic weapon unlocked! Give this girl her 100% Matric distinction right now 🔥😘",
+        ];
+        setZanteToast(currentZanteQ.wittyToast || flirtyCompliments[Math.floor(Math.random() * flirtyCompliments.length)]);
       }
       try {
         confetti({
@@ -171,7 +188,12 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
           : getFreshVoiceLine('roast');
         setZanteToast(pick);
       } else {
-        setZanteToast("Even in Zante mode? Bestie, let's pretend that was a misclick 💅");
+        const comicalRoasts = [
+          "Wait, the math must be wrong because you're literally too pretty to be wrong. Try that again gorgeous 😉✨",
+          "Girl... ain't no way you just clicked that. We are blaming the screen glare on that one 💀",
+          "Even in Zante mode? Bestie, let's pretend that was a misclick 💅",
+        ];
+        setZanteToast(comicalRoasts[Math.floor(Math.random() * comicalRoasts.length)]);
       }
       onAnswerResult(false, false);
     }
@@ -243,10 +265,12 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
 
   const handleNextAndreQuestion = () => {
     soundEngine.playTapPop();
+    const isP2 = activePaper === 'P2';
+    const effectiveTopic = activeTopic && (!isP2 || P2_TOPICS.includes(activeTopic)) ? activeTopic : undefined;
     const available = PAST_PAPER_QUESTIONS.filter(
       (q) =>
-        q.paper === activePaper &&
-        (!activeTopic || q.topic === activeTopic) &&
+        (isP2 ? q.paper === 'P2' && P2_TOPICS.includes(q.topic) : q.paper === activePaper) &&
+        (!effectiveTopic || q.topic === effectiveTopic) &&
         q.id !== andreQuestion.id
     );
     let chosen: Question;
@@ -254,9 +278,9 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
       chosen = available[Math.floor(Math.random() * available.length)];
     } else {
       chosen =
-        activePaper === 'P1'
-          ? generateP1Question(activeTopic)
-          : generateP2Question(activeTopic);
+        isP2
+          ? generateP2Question(effectiveTopic && P2_TOPICS.includes(effectiveTopic) ? effectiveTopic : 'statistics')
+          : generateP1Question(effectiveTopic);
     }
     setAndreQuestion(shuffleQuestionDistractors(chosen));
     setSelectedDistractorId(null);
@@ -269,10 +293,15 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
 
   const handleGenerateVariation = () => {
     soundEngine.playTapPop();
-    const generated =
-      activePaper === 'P1'
-        ? generateP1Question(andreQuestion.topic, andreQuestion.cognitiveLevel)
-        : generateP2Question(andreQuestion.topic, andreQuestion.cognitiveLevel);
+    const isP2 = activePaper === 'P2' || P2_TOPICS.includes(andreQuestion.topic);
+    const p2Topic = (P2_TOPICS.includes(andreQuestion.topic) ? andreQuestion.topic : 'statistics') as
+      | 'statistics'
+      | 'analytical_geometry'
+      | 'trigonometry'
+      | 'euclidean_geometry';
+    const generated = isP2
+      ? generateP2Question(p2Topic, andreQuestion.cognitiveLevel)
+      : generateP1Question(andreQuestion.topic, andreQuestion.cognitiveLevel);
     setAndreQuestion(shuffleQuestionDistractors(generated));
     setSelectedDistractorId(null);
     setAndreAnswered(false);

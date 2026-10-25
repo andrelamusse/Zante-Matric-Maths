@@ -341,7 +341,7 @@ export function generateGirlMathZante(): ZanteQuestion {
 // ===========================================================================
 export function generateFlirtyPrioritiesZante(): ZanteQuestion {
   const id = `zante_gen_flirt_${generatorCounter++}_${randInt(100, 999)}`;
-  const templateType = randInt(1, 3);
+  const templateType = randInt(1, 4);
 
   if (templateType === 1) {
     const pages = randInt(10, 20);
@@ -379,10 +379,10 @@ export function generateFlirtyPrioritiesZante(): ZanteQuestion {
       questionText: `Count the hearts: ${heartString}. Exactly how many are visible?`,
       options,
       correctIndex,
-      wittyToast: `Discrete counting at its finest. Do not let your ego get too inflated now.`,
+      wittyToast: `Well done baby, that was insane skill. Beauty and brains in one package, honestly unfair to everyone else 👑💖`,
       screenshotQuote: `Heart audit complete: exactly ${heartCount}. Discrete mathematics handled with style 💖`,
     };
-  } else {
+  } else if (templateType === 3) {
     const correct = '1.0 (certain event)';
     const distractors = [
       '0.50 (equal probability)',
@@ -398,6 +398,23 @@ export function generateFlirtyPrioritiesZante(): ZanteQuestion {
       correctIndex,
       wittyToast: `In rigorous probability theory, P(E) = 1.0 represents mathematical certainty. The axioms do not lie.`,
       screenshotQuote: `Probability Theory: P(Favorite) = 1.0. Mathematical certainty verified 💅`,
+    };
+  } else {
+    const correct = '+10,000';
+    const distractors = [
+      '+50 (mid)',
+      '0 aura',
+      'Needs to touch grass',
+    ];
+    const { options, correctIndex } = shuffleWithOptions(correct, distractors);
+    return {
+      id,
+      category: 'flirty_priorities',
+      questionText: 'If a guy can prove the Tan-Chord Theorem in 4 lines without looking at the memo, his aura is:',
+      options,
+      correctIndex,
+      wittyToast: 'Well done baby, that was insane skill. Beauty and brains in one package, honestly unfair to everyone else 👑💖',
+      screenshotQuote: 'Euclidean geometry aura check: 4-line Tan-Chord proof = +10,000 aura 💅📐',
     };
   }
 }

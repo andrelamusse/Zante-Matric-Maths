@@ -19,7 +19,7 @@ export const FormulaSheetDrawer: React.FC<FormulaSheetDrawerProps> = ({
   className = '',
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('Paper 2 (All)');
   const activeItemRef = useRef<HTMLDivElement | null>(null);
 
   // Close on Escape key
@@ -35,7 +35,15 @@ export const FormulaSheetDrawer: React.FC<FormulaSheetDrawerProps> = ({
 
   // Auto-scroll to active formula when drawer opens
   useEffect(() => {
-    if (isOpen && activeFormulaId && activeItemRef.current) {
+    if (isOpen && activeFormulaId) {
+      const activeFormula = FORMULA_SHEET.find((f) => f.id === activeFormulaId);
+      if (activeFormula) {
+        if (activeFormula.paper === 'P1') {
+          setSelectedCategory('all');
+        } else {
+          setSelectedCategory('Paper 2 (All)');
+        }
+      }
       setTimeout(() => {
         activeItemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 250);
@@ -44,14 +52,26 @@ export const FormulaSheetDrawer: React.FC<FormulaSheetDrawerProps> = ({
 
   if (!isOpen) return null;
 
-  // Extract distinct categories
-  const categories = ['all', 'Algebra', 'Patterns', 'Finance', 'Calculus', 'Probability', 'Statistics', 'Analytical Geometry', 'Trigonometry'];
+  // Extract distinct categories - Paper 2 featured first
+  const categories = [
+    'Paper 2 (All)',
+    'Analytical Geometry',
+    'Trigonometry',
+    'Statistics',
+    'all',
+    'Algebra',
+    'Patterns',
+    'Finance',
+    'Calculus',
+    'Probability',
+  ];
 
   // Filter formulas
   const q = searchQuery.toLowerCase().trim();
   const filteredFormulas = FORMULA_SHEET.filter((f) => {
     const matchesCategory =
       selectedCategory === 'all' ||
+      (selectedCategory === 'Paper 2 (All)' && f.paper === 'P2') ||
       f.category.toLowerCase() === selectedCategory.toLowerCase() ||
       (selectedCategory === 'Algebra' && f.topicId === 'algebra') ||
       (selectedCategory === 'Patterns' && f.topicId === 'patterns') ||
@@ -94,11 +114,11 @@ export const FormulaSheetDrawer: React.FC<FormulaSheetDrawerProps> = ({
             <div className="flex items-center gap-2">
               <span className="text-xl">📑</span>
               <h2 className="text-lg font-bold text-slate-900 tracking-tight">
-                Official NSC Formula Sheet
+                Official NSC Formula Sheet — Paper 2 Edition
               </h2>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              DBE Standard Grade 12 Pure Mathematics • 44 Formulas
+              DBE CAPS Grade 12 • Analytical Geometry, Trigonometry & Statistics Featured
             </p>
           </div>
 
@@ -158,7 +178,7 @@ export const FormulaSheetDrawer: React.FC<FormulaSheetDrawerProps> = ({
                       : 'bg-white/60 hover:bg-white text-slate-600'
                   }`}
                 >
-                  {cat === 'all' ? 'All (44)' : cat}
+                  {cat === 'all' ? 'All (44)' : cat === 'Paper 2 (All)' ? '⭐ All Paper 2 (Default)' : cat}
                 </button>
               );
             })}

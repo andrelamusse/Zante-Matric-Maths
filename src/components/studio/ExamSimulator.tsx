@@ -43,7 +43,7 @@ export interface ExamSimulatorProps {
 }
 
 export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
-  initialPaper = 'P1',
+  initialPaper = 'P2',
   onOpenFormulaSheet,
   className = '',
 }) => {
@@ -59,7 +59,7 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
 
   // Questions and User Progress
   const [examQuestions, setExamQuestions] = useState<Question[]>(() =>
-    buildMockExamQuestions(initialPaper, 'EX-01')
+    buildMockExamQuestions(initialPaper || 'P2', 'EX-01')
   );
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, string>>({}); // { questionIndex: answerOptionId }
@@ -294,10 +294,10 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
                   <span className="text-3xl">⏱️</span>
                   <div>
                     <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                      All-Paper 20-Exam Simulator
+                      Paper 2 20-Exam Simulator
                     </h2>
-                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-violet-100 text-violet-700">
-                      Authentic DBE NSC Standard • 150 Marks • 3 Hours
+                    <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                      Authentic DBE NSC Paper 2 Standard • 150 Marks • 3 Hours • 4 Topics
                     </span>
                   </div>
                 </div>
@@ -313,6 +313,20 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
                   type="button"
                   onClick={() => {
                     soundEngine.playTapPop();
+                    setSelectedPaper('P2');
+                  }}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                    selectedPaper === 'P2'
+                      ? 'bg-white text-emerald-700 shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  📐 Paper 2 Special Edition (10 Questions • 150m)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    soundEngine.playTapPop();
                     setSelectedPaper('P1');
                   }}
                   className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
@@ -322,20 +336,6 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
                   }`}
                 >
                   📘 Paper 1 (11 Questions • 150m)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    soundEngine.playTapPop();
-                    setSelectedPaper('P2');
-                  }}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
-                    selectedPaper === 'P2'
-                      ? 'bg-white text-emerald-700 shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  📐 Paper 2 (10 Questions • 150m)
                 </button>
               </div>
             </div>
@@ -361,6 +361,22 @@ export const ExamSimulator: React.FC<ExamSimulatorProps> = ({
                 <span className="text-base font-black text-emerald-700">DBE Tick Marks (✓)</span>
               </div>
             </div>
+
+            {/* Paper 2 4-Section Breakdown Pill */}
+            {selectedPaper === 'P2' && (
+              <div className="p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 flex items-center justify-between flex-wrap gap-2 text-xs mb-2">
+                <span className="font-extrabold text-emerald-900 flex items-center gap-1.5">
+                  <span>📐</span>
+                  <span>Official CAPS Paper 2 Breakdown (150 Marks):</span>
+                </span>
+                <div className="flex items-center gap-2 flex-wrap font-semibold text-emerald-800">
+                  <span className="px-2 py-0.5 rounded-full bg-white border border-emerald-200 shadow-2xs">📊 Statistics (20 ± 3m)</span>
+                  <span className="px-2 py-0.5 rounded-full bg-white border border-emerald-200 shadow-2xs">📏 Analytical Geometry (40 ± 3m)</span>
+                  <span className="px-2 py-0.5 rounded-full bg-white border border-emerald-200 shadow-2xs">🔄 Trigonometry (50 ± 3m)</span>
+                  <span className="px-2 py-0.5 rounded-full bg-white border border-emerald-200 shadow-2xs">⭕ Euclidean Geometry (40 ± 3m)</span>
+                </div>
+              </div>
+            )}
 
             {/* 20 Archetype Selector Grid */}
             <div className="mt-4 pt-4 border-t border-slate-200/60">

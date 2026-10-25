@@ -22,10 +22,10 @@ export const ZANTE_QUESTIONS: ZanteQuestion[] = [
   {
     id: 'zante_elem_01',
     category: 'elementary',
-    questionText: 'What number comes immediately after 3?',
+    questionText: 'What integer comes immediately after 3?',
     options: ['4', '7 (if we round up for inflation)', 'A panic attack', 'Whatever you want it to be'],
     correctIndex: 0,
-    wittyToast: "Look at you, counting in sequential order like a seasoned mathematician. Don't let the DBE catch you flexing like this.",
+    wittyToast: "4?! Stop it right now, Einstein is literally shaking. You're so smart AND pretty, how is that even legal? 💅✨",
     screenshotQuote: "Proof I'm a certified math genius 💅 Sequential counting: mastered.",
   },
   {
@@ -40,7 +40,7 @@ export const ZANTE_QUESTIONS: ZanteQuestion[] = [
   {
     id: 'zante_elem_03',
     category: 'elementary',
-    questionText: 'How many sides does a triangle have?',
+    questionText: 'How many sides does a triangle have in Euclidean Geometry?',
     options: ['3', '4 if it is aesthetic', 'Too many angles for a Tuesday', 'Just 1 continuous boundary vibe'],
     correctIndex: 0,
     wittyToast: 'Tri = three. You cracked the Latin root code. Euclidean geometry is shaking in its boots.',
@@ -58,7 +58,7 @@ export const ZANTE_QUESTIONS: ZanteQuestion[] = [
   {
     id: 'zante_elem_05',
     category: 'elementary',
-    questionText: 'Which number is bigger: 5 or 2?',
+    questionText: 'Which number is strictly bigger: 5 or 2?',
     options: ['5', '2 (it has better energy)', 'They are equal in my heart', 'Both are invalid'],
     correctIndex: 0,
     wittyToast: 'Inequalities demolished. You really know your numbers. Big numbers fear you.',
@@ -147,9 +147,9 @@ export const ZANTE_QUESTIONS: ZanteQuestion[] = [
   {
     id: 'zante_pass_04',
     category: 'passenger_princess',
-    questionText: 'Passenger Princess Rule #1: Who is picking the aux playlist?',
-    options: ['The driver', 'The passenger princess unconditionally', 'The radio', 'Whoever has the best math playlist'],
-    correctIndex: 1,
+    questionText: 'Passenger Princess Rule #1: Who controls the vehicle AUX cord?',
+    options: ['The passenger princess unconditionally', 'The driver', 'The radio', 'Whoever has the best math playlist'],
+    correctIndex: 0,
     wittyToast: 'Sonic sovereignty respected. Your playlist is non-negotiable.',
     screenshotQuote: 'Sound engineering: Passenger princess controls the soundtrack 🎶👑',
   },
@@ -227,11 +227,11 @@ export const ZANTE_QUESTIONS: ZanteQuestion[] = [
   {
     id: 'zante_flirt_02',
     category: 'flirty_priorities',
-    questionText: 'If a guy can solve 3D trigonometry without looking at the formula sheet, his status is:',
-    options: ['Mildly helpful', 'Distinction level tutor material', 'Suspect (probably an alien)', 'Average'],
-    correctIndex: 1,
-    wittyToast: 'Sine rule and Cosine rule in 3D: Certified academic leverage.',
-    screenshotQuote: 'Curriculum evaluation: 3D trig mastery is a high-value asset.',
+    questionText: 'If a guy can prove the Tan-Chord Theorem in 4 lines without looking at the memo, his aura is:',
+    options: ['+10,000', '+50 (mid)', '0 aura', 'Needs to touch grass'],
+    correctIndex: 0,
+    wittyToast: 'Well done baby, that was insane skill. Beauty and brains in one package, honestly unfair to everyone else 👑💖',
+    screenshotQuote: 'Euclidean geometry aura check: 4-line Tan-Chord proof = +10,000 aura 💅📐',
   },
   {
     id: 'zante_flirt_03',

@@ -33,6 +33,20 @@ export const PaperNav: React.FC<PaperNavProps> = ({
       {/* Primary Section Tabs */}
       <div className="flex flex-wrap items-center justify-between gap-2 p-1.5 rounded-2xl glass-card">
         <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+          {/* Paper 2 Tab (Special Edition) */}
+          <GlassButton
+            variant={activeTab === 'practice' && activePaper === 'P2' ? 'primary' : 'ghost'}
+            size="sm"
+            onClick={() => {
+              onTabChange('practice');
+              onPaperChange('P2');
+            }}
+            className="!px-3.5 !py-2"
+          >
+            <span className="font-bold">Paper 2 Edition</span>
+            <span className="text-[11px] opacity-80">(150m)</span>
+          </GlassButton>
+
           {/* Paper 1 Tab */}
           <GlassButton
             variant={activeTab === 'practice' && activePaper === 'P1' ? 'primary' : 'ghost'}
@@ -44,20 +58,6 @@ export const PaperNav: React.FC<PaperNavProps> = ({
             className="!px-3.5 !py-2"
           >
             <span className="font-bold">Paper 1</span>
-            <span className="text-[11px] opacity-80">(150m)</span>
-          </GlassButton>
-
-          {/* Paper 2 Tab */}
-          <GlassButton
-            variant={activeTab === 'practice' && activePaper === 'P2' ? 'primary' : 'ghost'}
-            size="sm"
-            onClick={() => {
-              onTabChange('practice');
-              onPaperChange('P2');
-            }}
-            className="!px-3.5 !py-2"
-          >
-            <span className="font-bold">Paper 2</span>
             <span className="text-[11px] opacity-80">(150m)</span>
           </GlassButton>
 
@@ -88,14 +88,14 @@ export const PaperNav: React.FC<PaperNavProps> = ({
         <div className="hidden lg:flex items-center gap-2 text-xs text-slate-500 pr-2 font-medium">
           {activeTab === 'practice' ? (
             <span>
-              {activePaper === 'P1'
-                ? 'Paper 1: Algebra, Patterns, Functions, Finance, Calculus, Probability'
-                : 'Paper 2: Statistics, Analytical Geometry, Trigonometry, Euclidean Geometry'}
+              {activePaper === 'P2'
+                ? "Zante's Matric Maths Studio — Paper 2 Edition (150 Marks): Statistics, Analytical, Trig & Euclidean"
+                : 'Paper 1 (150 Marks): Algebra, Patterns, Functions, Finance, Calculus, Probability'}
             </span>
           ) : activeTab === 'one_pagers' ? (
-            <span>High-Yield Summaries, Exam Traps & Euclidean Reasons</span>
+            <span>Paper 2 High-Yield Summaries, Exam Traps & Euclidean Reasons</span>
           ) : (
-            <span>Timed 3-Hour 150-Mark Authentic NSC Mock Exam</span>
+            <span>Timed 3-Hour 150-Mark Authentic NSC Paper 2 Mock Exam</span>
           )}
         </div>
       </div>
