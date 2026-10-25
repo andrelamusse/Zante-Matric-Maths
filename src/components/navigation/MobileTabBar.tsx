@@ -31,6 +31,20 @@ export const MobileTabBar: React.FC<MobileTabBarProps> = ({
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/80 backdrop-blur-2xl border-t border-white/80 shadow-lg px-2 py-1.5 pb-safe">
       <div className="flex items-center justify-around max-w-md mx-auto">
+        {/* Paper 2 Tab (Special Edition) */}
+        <button
+          type="button"
+          onClick={() => handleNav('practice', 'P2')}
+          className={`flex flex-col items-center justify-center min-w-[54px] min-h-[44px] rounded-xl px-2 py-1 transition-all ${
+            activeTab === 'practice' && activePaper === 'P2'
+              ? 'text-violet-700 font-bold bg-violet-50/80 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <span className="text-base">📐</span>
+          <span className="text-[10px] tracking-tight font-semibold">Paper 2</span>
+        </button>
+
         {/* Paper 1 Tab */}
         <button
           type="button"
@@ -43,20 +57,6 @@ export const MobileTabBar: React.FC<MobileTabBarProps> = ({
         >
           <span className="text-base">📘</span>
           <span className="text-[10px] tracking-tight">Paper 1</span>
-        </button>
-
-        {/* Paper 2 Tab */}
-        <button
-          type="button"
-          onClick={() => handleNav('practice', 'P2')}
-          className={`flex flex-col items-center justify-center min-w-[54px] min-h-[44px] rounded-xl px-2 py-1 transition-all ${
-            activeTab === 'practice' && activePaper === 'P2'
-              ? 'text-violet-700 font-bold bg-violet-50/80 shadow-sm'
-              : 'text-slate-600 hover:text-slate-900'
-          }`}
-        >
-          <span className="text-base">📐</span>
-          <span className="text-[10px] tracking-tight">Paper 2</span>
         </button>
 
         {/* One-Pager Cheat Sheets */}

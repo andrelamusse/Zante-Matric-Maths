@@ -126,6 +126,51 @@ describe('Paper 2 Special Edition: Master Prompt Verification', () => {
         assert.equal(q.paper, 'P2');
       }
     });
+
+    it('should verify createInitialPaper2StudioState initializes to Paper 2 statistics', async () => {
+      const { createInitialPaper2StudioState } = await import('../src/state/studioState.ts');
+
+      const initialP2 = createInitialPaper2StudioState();
+      assert.equal(initialP2.activePaper, 'P2', 'createInitialPaper2StudioState must set P2');
+      assert.equal(initialP2.activeTopic, 'statistics', 'createInitialPaper2StudioState must set statistics');
+    });
+
+    it('should ensure Girl Math generator never generates double-dot floats like R128.5.00 across 500 runs', async () => {
+      const { generateGirlMathZante } = await import('../src/generators/zanteGenerator.ts');
+      for (let i = 0; i < 500; i++) {
+        const q = generateGirlMathZante();
+        for (const opt of q.options) {
+          assert.ok(
+            !/\.\d+\.00/.test(opt),
+            `Option "${opt}" contains invalid double-dot float formatting in run ${i}`
+          );
+        }
+      }
+    });
+
+    it('should verify verbatim question 3 and question 6 match master prompt exactly', () => {
+      const q3 = ZANTE_QUESTIONS.find((q) => q.id === 'zante_coffee_01');
+      assert.ok(q3);
+      assert.equal(
+        q3.questionText,
+        'If Zante has 2 iced coffees and Andre buys her 1 more because she looks pretty today, how many does she have?'
+      );
+
+      const q6 = ZANTE_QUESTIONS.find((q) => q.id === 'zante_flirt_05');
+      assert.ok(q6);
+      assert.equal(
+        q6.questionText,
+        'Count the hearts: 💖 💖 💖 — exactly how many are on screen?'
+      );
+      assert.equal(q6.options[q6.correctIndex], '3');
+    });
+
+    it('should verify praise voice lines include Paper 2 Euclidean and Tan-Chord references', () => {
+      assert.ok(PRAISE_VOICE_LINES.some((line) => line.includes('Paper 2')));
+      assert.ok(PRAISE_VOICE_LINES.some((line) => line.includes('Euclidean geometry riders')));
+      assert.ok(PRAISE_VOICE_LINES.some((line) => line.includes('Tan-Chord Theorem')));
+      assert.ok(PRAISE_VOICE_LINES.some((line) => line.includes('Trigonometry & circle geometry')));
+    });
   });
 
   describe('3. Component Branding & Static Artifacts', () => {
@@ -134,9 +179,11 @@ describe('Paper 2 Special Edition: Master Prompt Verification', () => {
       assert.ok(indexHtml.includes("Zante's Matric Maths Studio — Paper 2 Edition"));
     });
 
-    it('should verify Header.tsx contains Paper 2 Edition branding', () => {
+    it('should verify Header.tsx contains Paper 2 Edition branding and Zante mode switch line', () => {
       const headerContent = fs.readFileSync(path.resolve('src/components/navigation/Header.tsx'), 'utf-8');
       assert.ok(headerContent.includes("Zante's Matric Maths Studio — Paper 2 Edition"));
+      assert.ok(headerContent.includes("Running back to Zante mode? Don't worry, your secret is safe."));
+      assert.ok(!headerContent.includes("Running back to easy mode?"));
     });
 
     it('should verify PaperNav.tsx contains Paper 2 Edition tab and description', () => {
@@ -145,10 +192,26 @@ describe('Paper 2 Special Edition: Master Prompt Verification', () => {
       assert.ok(navContent.includes("Zante's Matric Maths Studio — Paper 2 Edition"));
     });
 
-    it('should verify FormulaSheetDrawer.tsx defaults to Paper 2', () => {
+    it('should verify MobileTabBar.tsx features Paper 2 tab first', () => {
+      const mobileNavContent = fs.readFileSync(path.resolve('src/components/navigation/MobileTabBar.tsx'), 'utf-8');
+      const p2Index = mobileNavContent.indexOf("handleNav('practice', 'P2')");
+      const p1Index = mobileNavContent.indexOf("handleNav('practice', 'P1')");
+      assert.ok(p2Index !== -1 && p1Index !== -1, 'Both tabs must exist');
+      assert.ok(p2Index < p1Index, 'Paper 2 tab must appear before Paper 1 tab in MobileTabBar');
+    });
+
+    it('should verify FormulaSheetDrawer.tsx defaults to Paper 2 and highlights Paper 2 formulas', () => {
       const drawerContent = fs.readFileSync(path.resolve('src/components/tools/FormulaSheetDrawer.tsx'), 'utf-8');
       assert.ok(drawerContent.includes("useState<string>('Paper 2 (All)')"));
       assert.ok(drawerContent.includes('Official NSC Formula Sheet — Paper 2 Edition'));
+      assert.ok(drawerContent.includes('Search Paper 2 formulas'));
+    });
+
+    it('should verify CheatSheetView.tsx defaults to statistics and P2 filter', () => {
+      const sheetContent = fs.readFileSync(path.resolve('src/components/studio/CheatSheetView.tsx'), 'utf-8');
+      assert.ok(sheetContent.includes("initialTopicId = 'statistics'"));
+      assert.ok(sheetContent.includes("useState<'ALL' | PaperId>('P2')"));
+      assert.ok(sheetContent.includes('Paper 2 (Special Edition)'));
     });
 
     it('should verify ExamSimulator.tsx defaults to Paper 2', () => {
@@ -157,11 +220,14 @@ describe('Paper 2 Special Edition: Master Prompt Verification', () => {
       assert.ok(simContent.includes('Paper 2 20-Exam Simulator'));
     });
 
-    it('should verify App.tsx defaults state to Paper 2 and sets document title', () => {
+    it('should verify App.tsx defaults state to Paper 2, sets document title, and uses Zante mode line', () => {
       const appContent = fs.readFileSync(path.resolve('src/App.tsx'), 'utf-8');
       assert.ok(appContent.includes("activePaper: 'P2'"));
       assert.ok(appContent.includes("activeTopic: 'statistics'"));
       assert.ok(appContent.includes("Zante's Matric Maths Studio — Paper 2 Edition"));
+      assert.ok(appContent.includes("Running back to Zante mode? Don't worry, your secret is safe."));
+      assert.ok(!appContent.includes("Running back to easy mode?"));
     });
   });
 });
+

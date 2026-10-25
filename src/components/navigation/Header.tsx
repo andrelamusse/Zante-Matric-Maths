@@ -94,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({
     if (nextMode === 'zante' && difficultyMode === 'andre') {
       if (soundEngine.getAudioMode() === 'meme') {
         soundEngine.playVineBoom();
-        soundEngine.speakReaction("Running back to easy mode? Don't worry, your secret is safe.");
+        soundEngine.speakReaction("Running back to Zante mode? Don't worry, your secret is safe.");
       } else {
         soundEngine.playTapPop();
       }

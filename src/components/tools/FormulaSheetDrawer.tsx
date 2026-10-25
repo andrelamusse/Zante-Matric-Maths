@@ -144,7 +144,7 @@ export const FormulaSheetDrawer: React.FC<FormulaSheetDrawerProps> = ({
             </span>
             <input
               type="text"
-              placeholder="Search formulas (e.g. quadratic, annuity, sine rule)..."
+              placeholder="Search Paper 2 formulas (e.g. sine rule, cosine rule, regression, distance, circle tangent)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-9 pr-8 py-2 text-sm rounded-xl bg-white/80 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-violet-400 transition-all placeholder:text-slate-400"

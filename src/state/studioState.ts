@@ -463,12 +463,17 @@ export function evaluateAchievements(state: ZanteStudioState, context?: {
  * Studio State Factory & Actions
  * ---------------------------------------------------------------------------
  */
-export function createInitialStudioState(): ZanteStudioState {
+export function createInitialStudioState(
+  initialPaper: PaperId = 'P1',
+  initialTopic?: TopicId
+): ZanteStudioState {
+  const paper = initialPaper;
+  const topic = initialTopic || (paper === 'P1' ? 'algebra' : 'statistics');
   return {
     version: 1,
     difficultyMode: 'zante',
-    activePaper: 'P1',
-    activeTopic: 'algebra',
+    activePaper: paper,
+    activeTopic: topic,
     streakCount: 0,
     highestStreak: 0,
     shieldActive: true,
@@ -478,6 +483,10 @@ export function createInitialStudioState(): ZanteStudioState {
     completedQuestionIds: [],
     unlockedAchievements: [],
   };
+}
+
+export function createInitialPaper2StudioState(): ZanteStudioState {
+  return createInitialStudioState('P2', 'statistics');
 }
 
 export function switchPaper(state: ZanteStudioState, newPaper: PaperId): ZanteStudioState {

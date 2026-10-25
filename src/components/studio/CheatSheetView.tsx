@@ -23,12 +23,12 @@ export interface CheatSheetViewProps {
 }
 
 export const CheatSheetView: React.FC<CheatSheetViewProps> = ({
-  initialTopicId = 'algebra',
+  initialTopicId = 'statistics',
   onOpenFormulaSheetDrawer,
   className = '',
 }) => {
   const [selectedTopicId, setSelectedTopicId] = useState<TopicId>(initialTopicId);
-  const [paperFilter, setPaperFilter] = useState<'ALL' | PaperId>('ALL');
+  const [paperFilter, setPaperFilter] = useState<'ALL' | PaperId>('P2');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeRecipeIndex, setActiveRecipeIndex] = useState<number | null>(0);
   const [showReasonsModal, setShowReasonsModal] = useState(false);
@@ -42,8 +42,8 @@ export const CheatSheetView: React.FC<CheatSheetViewProps> = ({
   const [trigPlotType, setTrigPlotType] = useState<'cast_circle' | 'soh_cah_toa' | 'wave_graphs'>('cast_circle');
   const [euclideanPlotType, setEuclideanPlotType] = useState<EuclideanTheoremType>('angle_at_centre');
 
-  const currentSheet = CHEAT_SHEETS[selectedTopicId] || CHEAT_SHEETS.algebra;
-  const currentTopicInfo = TOPICS[selectedTopicId] || TOPICS.algebra;
+  const currentSheet = CHEAT_SHEETS[selectedTopicId] || CHEAT_SHEETS.statistics;
+  const currentTopicInfo = TOPICS[selectedTopicId] || TOPICS.statistics;
 
   // Filtered topics list for pill selector
   const visibleTopicList = useMemo(() => {
@@ -155,6 +155,21 @@ export const CheatSheetView: React.FC<CheatSheetViewProps> = ({
               type="button"
               onClick={() => {
                 soundEngine.playTapPop();
+                setPaperFilter('P2');
+                if (currentSheet.paper !== 'P2') setSelectedTopicId('statistics');
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                paperFilter === 'P2'
+                  ? 'bg-white text-emerald-700 shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Paper 2 (Special Edition)
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                soundEngine.playTapPop();
                 setPaperFilter('ALL');
               }}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
@@ -179,21 +194,6 @@ export const CheatSheetView: React.FC<CheatSheetViewProps> = ({
               }`}
             >
               Paper 1
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                soundEngine.playTapPop();
-                setPaperFilter('P2');
-                if (currentSheet.paper !== 'P2') setSelectedTopicId('statistics');
-              }}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                paperFilter === 'P2'
-                  ? 'bg-white text-emerald-700 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-            >
-              Paper 2
             </button>
           </div>
 

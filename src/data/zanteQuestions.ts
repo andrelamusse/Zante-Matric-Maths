@@ -71,7 +71,7 @@ export const ZANTE_QUESTIONS: ZanteQuestion[] = [
   {
     id: 'zante_coffee_01',
     category: 'iced_coffee',
-    questionText: 'If Zante has 2 iced coffees and Andre buys her 1 more because she looks pretty today, how many iced coffees does she have?',
+    questionText: 'If Zante has 2 iced coffees and Andre buys her 1 more because she looks pretty today, how many does she have?',
     options: ['3', 'Not enough caffeine to function', 'R0 spent (financial freedom)', '4 (girl math rounded up)'],
     correctIndex: 0,
     wittyToast: "3?! Stop it right now, Einstein is literally shaking. You're so smart AND pretty, how is that even legal? 💅✨",
@@ -254,10 +254,10 @@ export const ZANTE_QUESTIONS: ZanteQuestion[] = [
   {
     id: 'zante_flirt_05',
     category: 'flirty_priorities',
-    questionText: 'Count the hearts: 💖 💖 💖 — how many are there?',
+    questionText: 'Count the hearts: 💖 💖 💖 — exactly how many are on screen?',
     options: ['3', '3, and they are all for you', '4', 'Too many emotions for one screen'],
     correctIndex: 0,
-    wittyToast: 'Well done gorgeous, that was insane skill. Beauty and brains in one package, honestly unfair to everyone else 👑💖',
+    wittyToast: 'Well done baby, that was insane skill. Beauty and brains in one package, honestly unfair to everyone else 👑💖',
     screenshotQuote: 'Heart audit complete: exactly 3. Discrete mathematics handled with style.',
   },
 

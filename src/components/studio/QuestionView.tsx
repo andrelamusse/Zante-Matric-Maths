@@ -83,7 +83,7 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
     const q =
       topicFiltered[0] ||
       (isP2 ? PAST_PAPER_QUESTIONS.find((p) => p.paper === 'P2' && P2_TOPICS.includes(p.topic)) : PAST_PAPER_QUESTIONS[0]) ||
-      PAST_PAPER_QUESTIONS[0];
+      (isP2 ? generateP2Question('statistics') : PAST_PAPER_QUESTIONS[0]);
     return shuffleQuestionDistractors(q);
   });
   const [selectedDistractorId, setSelectedDistractorId] = useState<string | null>(null);
@@ -126,7 +126,7 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
       } else {
         chosen =
           isP2
-            ? generateP2Question(effectiveTopic && P2_TOPICS.includes(effectiveTopic) ? effectiveTopic : 'statistics')
+            ? generateP2Question(effectiveTopic && P2_TOPICS.includes(effectiveTopic) ? effectiveTopic : undefined)
             : generateP1Question(effectiveTopic);
       }
       setAndreQuestion(shuffleQuestionDistractors(chosen));
@@ -149,24 +149,28 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
     setZanteAnswered(true);
 
     const isCorrect = idx === currentZanteQ.correctIndex;
+    const flirtyCompliments = [
+      "4?! Stop it right now, Einstein is literally shaking. You're so smart AND pretty, how is that even legal? 💅✨",
+      "Well done baby, that was insane skill. Beauty and brains in one package, honestly unfair to everyone else 👑💖",
+      "Academic weapon unlocked! Give this girl her 100% Matric distinction right now 🔥😘",
+    ];
+    const comicalRoasts = [
+      "Wait, the math must be wrong because you're literally too pretty to be wrong. Try that again gorgeous 😉✨",
+      "Girl... ain't no way you just clicked that. We are blaming the screen glare on that one 💀",
+    ];
+
     if (isCorrect) {
       soundEngine.playGlassChime();
       soundEngine.playConfettiBlast();
       if (soundEngine.getAudioMode() === 'meme') {
         soundEngine.playBaddieShimmer();
         soundEngine.playCameraShutter();
-        const pick = soundEngine.speakFreshBanter
-          ? soundEngine.speakFreshBanter('praise')
-          : getFreshVoiceLine('praise');
-        setZanteToast(pick);
-      } else {
-        const flirtyCompliments = [
-          "4?! Stop it right now, Einstein is literally shaking. You're so smart AND pretty, how is that even legal? 💅✨",
-          "Well done baby, that was insane skill. Beauty and brains in one package, honestly unfair to everyone else 👑💖",
-          "Academic weapon unlocked! Give this girl her 100% Matric distinction right now 🔥😘",
-        ];
-        setZanteToast(currentZanteQ.wittyToast || flirtyCompliments[Math.floor(Math.random() * flirtyCompliments.length)]);
       }
+      const compliment =
+        currentZanteQ.wittyToast ||
+        flirtyCompliments[Math.floor(Math.random() * flirtyCompliments.length)];
+      setZanteToast(compliment);
+      soundEngine.speakReaction(compliment);
       try {
         confetti({
           particleCount: 90,
@@ -183,18 +187,10 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
       if (soundEngine.getAudioMode() === 'meme') {
         soundEngine.playSadTrombone();
         soundEngine.playBruhThud();
-        const pick = soundEngine.speakFreshBanter
-          ? soundEngine.speakFreshBanter('roast')
-          : getFreshVoiceLine('roast');
-        setZanteToast(pick);
-      } else {
-        const comicalRoasts = [
-          "Wait, the math must be wrong because you're literally too pretty to be wrong. Try that again gorgeous 😉✨",
-          "Girl... ain't no way you just clicked that. We are blaming the screen glare on that one 💀",
-          "Even in Zante mode? Bestie, let's pretend that was a misclick 💅",
-        ];
-        setZanteToast(comicalRoasts[Math.floor(Math.random() * comicalRoasts.length)]);
       }
+      const roast = comicalRoasts[Math.floor(Math.random() * comicalRoasts.length)];
+      setZanteToast(roast);
+      soundEngine.speakReaction(roast);
       onAnswerResult(false, false);
     }
   };
@@ -279,7 +275,7 @@ export const QuestionView: React.FC<QuestionViewProps> = ({
     } else {
       chosen =
         isP2
-          ? generateP2Question(effectiveTopic && P2_TOPICS.includes(effectiveTopic) ? effectiveTopic : 'statistics')
+          ? generateP2Question(effectiveTopic && P2_TOPICS.includes(effectiveTopic) ? effectiveTopic : undefined)
           : generateP1Question(effectiveTopic);
     }
     setAndreQuestion(shuffleQuestionDistractors(chosen));

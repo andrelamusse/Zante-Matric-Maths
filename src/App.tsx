@@ -149,7 +149,7 @@ export const App: React.FC = () => {
         if (soundEngine.speakFreshBanter) {
           soundEngine.speakFreshBanter('special');
         } else {
-          soundEngine.speakReaction("Running back to easy mode? Don't worry, your secret is safe.");
+          soundEngine.speakReaction("Running back to Zante mode? Don't worry, your secret is safe.");
         }
       }
     }
@@ -295,7 +295,7 @@ export const App: React.FC = () => {
 
         {activeTab === 'one_pagers' && (
           <CheatSheetView
-            initialTopicId={studioState.activeTopic || 'algebra'}
+            initialTopicId={studioState.activeTopic || 'statistics'}
             onOpenFormulaSheetDrawer={handleOpenFormulaSheet}
           />
         )}

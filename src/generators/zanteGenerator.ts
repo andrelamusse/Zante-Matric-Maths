@@ -316,11 +316,11 @@ export function generateGirlMathZante(): ZanteQuestion {
       screenshotQuote: `Marginal Cost Analysis: R${buyVal} item - R${retVal} return = R${diff}. Basically free 💅`,
     };
   } else {
-    const cash = randInt(100, 400);
+    const cash = randInt(50, 200) * 2;
     const correct = 'R0.00. Cash is paper, not money';
     const distractors = [
       `The full R${cash}.00 amount`,
-      `Half the amount (R${cash / 2}.00)`,
+      `Half the amount (R${(cash / 2).toFixed(2)})`,
       'It creates an overdraft fee',
     ];
     const { options, correctIndex } = shuffleWithOptions(correct, distractors);
@@ -376,7 +376,7 @@ export function generateFlirtyPrioritiesZante(): ZanteQuestion {
     return {
       id,
       category: 'flirty_priorities',
-      questionText: `Count the hearts: ${heartString}. Exactly how many are visible?`,
+      questionText: `Count the hearts: ${heartString} — exactly how many are on screen?`,
       options,
       correctIndex,
       wittyToast: `Well done baby, that was insane skill. Beauty and brains in one package, honestly unfair to everyone else 👑💖`,
